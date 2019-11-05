@@ -19,4 +19,11 @@ public interface ISpokesmanOfGod extends Runnable {
 
 	/** 执行前的初始化 */
 	public void init();
+
+	/** 不死配置：这个配置决定了怎样判断服务挂掉 */
+	public IUndeadConfig getUndeadConfig();
+
+	public Thread getBindThread();
+
+	public boolean setBindThread(Thread bindThread);
 }

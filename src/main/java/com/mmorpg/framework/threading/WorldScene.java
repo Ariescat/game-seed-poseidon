@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class WorldScene {
 
-	private final static Logger logger = LoggerFactory.getLogger(WorldScene.class);
+	private final static Logger log = LoggerFactory.getLogger(WorldScene.class);
 
 	private final static WorldScene instance = new WorldScene();
 
@@ -59,7 +59,7 @@ public class WorldScene {
 			try {
 				executeWorker(spokesmanOfGod);
 			} catch (Exception e) {
-				logger.error("", e);
+				log.error("", e);
 			}
 		}
 	}
@@ -104,9 +104,9 @@ public class WorldScene {
 						sb.append("\t").append(((ISpokesmanOfGod) a).getName()).append("\n");
 					}
 				}
-				logger.error("世界场景强制关闭了[" + name + "]以下服务---：\n" + sb);
+				log.error("世界场景强制关闭了[" + name + "]以下服务---：\n" + sb);
 			} else {
-				logger.info("世界场景成功关闭[" + name + "]");
+				log.info("世界场景成功关闭[" + name + "]");
 			}
 		}
 	}
