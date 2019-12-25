@@ -1,0 +1,70 @@
+#!/bin/sh
+
+export LANG=zh_CN.UTF8
+
+#ulimit -n 65535 #####test#####
+
+JAVA_HOME=/usr/java/jdk1.7.0_45
+GAME_HOME=/data/game/game8001/
+LOG_DIR=/data/gamelogs/chuanqi/37wan/S8001
+DAEMON_HOME=$GAME_HOME/bin
+GAME_USER=www
+START_CLASS=com.mmorpg.GameServerBootstrap
+TMP_DIR=/var/tmp
+PID_FILE=/data/game/game_s8001.pid
+EXE_FILE=socket
+
+DGM_ARGS="-Dgmweb.monitor.game=mir -Dgmweb.monitor.plat=37wan -Dgmweb.monitor.serverid=8001 -Dgmweb.monitor.type=game"
+MEMORY_ARGS="-Xms8192M -Xmx8192M -XX:NewRatio=5 -Xss256K -XX:PermSize=192m -XX:MaxPermSize=192m"
+
+GC_ARGS="-XX:MaxTenuringThreshold=5 -XX:CMSFullGCsBeforeCompaction=1 -XX:CMSInitiatingOccupancyFraction=60 -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:+UseCMSCompactAtFullCollection -XX:+UseCMSInitiatingOccupancyOnly -XX:+CMSParallelRemarkEnabled"
+
+JVM_ARGS="-server -verbosegc -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=$GAME_HOME/$EXE_FILE.dump"
+SYS_PROPS="-Dlog.dir=$LOG_DIR -Dgame.dir=$GAME_HOME -Dexe.file=$EXE_FILE -Djava.util.Arrays.useLegacyMergeSort=true -Djava.lang.Integer.IntegerCache.high=400000"
+TOOLS="-Xbootclasspath/a:$JAVA_HOME/lib/tools.jar:/data/hotswap/ProfilerSDK-0.0.1-SNAPSHOT-shaded.jar"
+
+CLASSPATH="."
+CLASSPATH=$CLASSPATH:$GAME_HOME/conf:$GAME_HOME/script
+
+for libfile in $(ls $GAME_HOME/lib)
+do
+	CLASSPATH=$CLASSPATH:$GAME_HOME/lib/$libfile
+done
+
+start() {
+    chown www:www -R $GAME_HOME/lib
+#	echo "" > ${GAME_HOME}conf/config/skill/skillDataModel.xml
+	CMD="$DAEMON_HOME/jsvc -javaagent:/data/init/jiami/mir/GameLoader.jar $TOOLS $DGM_ARGS $MEMORY_ARGS $GC_ARGS $JVM_ARGS $SYS_PROPS -umask 022 -user $GAME_USER -home $JAVA_HOME -pidfile $PID_FILE -outfile $LOG_DIR/console.log -errfile $LOG_DIR/error.log -cp $CLASSPATH $START_CLASS"
+	`$CMD`
+	chown www:www -R $LOG_DIR 
+	chmod -R 755 $LOG_DIR
+}
+
+stop() {
+	$DAEMON_HOME/jsvc -stop -pidfile $PID_FILE $START_CLASS
+}
+
+case "$1" in
+start)
+        cd $GAME_HOME
+	start
+	echo "server start...."
+	exit $?
+;;
+
+stop)
+        cd $GAME_HOME
+	stop
+	echo "server stop"
+	exit $?
+;;
+restart)
+	stop
+	sleep 10
+	start
+;;
+*)                                                                                                                          
+	echo "Usage jsvc {start|stop|restart}"
+	exit 1
+;;
+esac
