@@ -52,12 +52,12 @@ public class SyncQueuePool {
             return false;
         }
 
-        SyncQueue sq = synchronizable.getSuncQueue();
+        SyncQueue sq = synchronizable.getSyncQueue();
         if (sq == null) {
             int hash = synchronizable.getHash() % this.poolSize;
             hash = Math.abs(hash);
             sq = pool[hash];
-            synchronizable.setSuncQueue(sq);
+            synchronizable.setSyncQueue(sq);
         }
 
         return sq.submit(synchronizable);

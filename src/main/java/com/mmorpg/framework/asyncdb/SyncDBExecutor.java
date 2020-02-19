@@ -78,7 +78,7 @@ public class SyncDBExecutor {
 
     private ExecutorService createExecutorService() {
         return new ThreadPoolExecutor(this.SIZE, this.SIZE, 0L, TimeUnit.MILLISECONDS,
-                new LinkedTransferQueue<>(),
+                new LinkedTransferQueue<Runnable>(),
                 new CoreThreadFactory("SyncDbExecutor", false));
     }
 

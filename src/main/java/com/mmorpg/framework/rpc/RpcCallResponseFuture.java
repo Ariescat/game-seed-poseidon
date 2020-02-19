@@ -21,7 +21,7 @@ public class RpcCallResponseFuture extends AbstractFuture<Object> implements Rpc
     }
 
     @Override
-    public void addListener(RpcListener listener) {
+    public void addListener(final RpcListener listener) {
         super.addListener(new Runnable() {
             @Override
             public void run() {

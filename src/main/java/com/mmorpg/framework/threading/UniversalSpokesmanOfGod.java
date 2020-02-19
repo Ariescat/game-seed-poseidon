@@ -38,8 +38,8 @@ public abstract class UniversalSpokesmanOfGod implements ISpokesmanOfGod {
 		while (running.get()) {
 			long startTimeMillis = System.currentTimeMillis();
 			try {
-			} catch (Throwable t) {
 				execute(running.get());
+			} catch (Throwable t) {
 				log.error(String.format("Exception occure when execute in %s", getName()), t);
 			}
 

@@ -66,11 +66,11 @@ public class AsynDBEntity {
         return state;
     }
 
-    public SyncQueue getSuncQueue() {
+    public SyncQueue getSyncQueue() {
         return suncQueue;
     }
 
-    public void setSuncQueue(SyncQueue suncQueue) {
+    public void setSyncQueue(SyncQueue suncQueue) {
         this.suncQueue = suncQueue;
 
     }
