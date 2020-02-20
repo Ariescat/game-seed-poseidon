@@ -8,5 +8,5 @@ package com.mmorpg.logic.base.packet;
  */
 public class PacketId {
 
-    public static final short RESP_MESSAGE = 13301;
+	public static final short RESP_MESSAGE = 13301;
 }

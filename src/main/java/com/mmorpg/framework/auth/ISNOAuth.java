@@ -6,13 +6,13 @@ package com.mmorpg.framework.auth;
  */
 public interface ISNOAuth {
 
-    /**
-     * 生成发送的序列号
-     */
-    int genSNO(int inc, int salt);
+	/**
+	 * 生成发送的序列号
+	 */
+	int genSNO(int inc, int salt);
 
-    /**
-     * 恢复真实的序列号
-     */
-    int restoreSNO(int sno, int salt);
+	/**
+	 * 恢复真实的序列号
+	 */
+	int restoreSNO(int sno, int salt);
 }

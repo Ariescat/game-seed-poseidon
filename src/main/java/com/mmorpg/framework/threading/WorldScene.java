@@ -19,14 +19,22 @@ public class WorldScene {
 
 	private final static WorldScene instance = new WorldScene();
 
-	/** BOSS线程池：我负责管理Worker服务 */
+	/**
+	 * BOSS线程池：我负责管理Worker服务
+	 */
 	private final static ExecutorService bossThreadPool = Executors.newCachedThreadPool();
-	/** 线程池中存在的BOSS服务 */
+	/**
+	 * 线程池中存在的BOSS服务
+	 */
 	private ConcurrentLinkedQueue<ISpokesmanOfGod> bossServices = new ConcurrentLinkedQueue<ISpokesmanOfGod>();
 
-	/** Worker线程池：负责处理每个向世界的业务请求 */
+	/**
+	 * Worker线程池：负责处理每个向世界的业务请求
+	 */
 	private final static ExecutorService workerThreadPool = Executors.newCachedThreadPool();
-	/** 线程池中存在的Worker服务 */
+	/**
+	 * 线程池中存在的Worker服务
+	 */
 	private ConcurrentLinkedQueue<ISpokesmanOfGod> workerServices = new ConcurrentLinkedQueue<ISpokesmanOfGod>();
 
 	public AtomicBoolean isStop = new AtomicBoolean(false);

@@ -6,7 +6,7 @@ package com.mmorpg.logic.base.utils;
  */
 public class TimeUtils {
 
-    public static long getCurrentMillisTime() {
-        return System.currentTimeMillis();
-    }
+	public static long getCurrentMillisTime() {
+		return System.currentTimeMillis();
+	}
 }

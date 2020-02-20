@@ -6,11 +6,11 @@ package com.mmorpg.logic.base.login;
  */
 public enum GameSessionStatusUpdateCause {
 
-    PLayerLogoutMessage,
-    RequestExitWorld,
-    RegisterSession,
-    Robot,
-    TimeoutReset,
-    RoLeCreate
+	PLayerLogoutMessage,
+	RequestExitWorld,
+	RegisterSession,
+	Robot,
+	TimeoutReset,
+	RoLeCreate
 
 }

@@ -6,15 +6,15 @@ package com.mmorpg.logic.base.message;
  */
 public enum MessageId {
 
-    ANOUNCEMENT(10000);
+	ANOUNCEMENT(10000);
 
-    private int id;
+	private int id;
 
-    MessageId(int id) {
-        this.id = id;
-    }
+	MessageId(int id) {
+		this.id = id;
+	}
 
-    public int getId() {
-        return id;
-    }
+	public int getId() {
+		return id;
+	}
 }

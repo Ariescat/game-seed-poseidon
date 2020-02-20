@@ -12,46 +12,46 @@ import java.net.InetSocketAddress;
  * @version 2020/2/19 14:40
  */
 public class ChannelUtils {
-    private static final AttributeKey<GameSession> SESSION_KEY = AttributeKey.valueOf("session-key");
+	private static final AttributeKey<GameSession> SESSION_KEY = AttributeKey.valueOf("session-key");
 
-    /**
-     * 添加会调
-     */
-    public static boolean addChannelSession(Channel channel, GameSession session) {
-        Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
-        return sessionAttr.compareAndSet(null, session);
-    }
+	/**
+	 * 添加会调
+	 */
+	public static boolean addChannelSession(Channel channel, GameSession session) {
+		Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
+		return sessionAttr.compareAndSet(null, session);
+	}
 
-    /**
-     * 获取会话
-     */
-    public static GameSession getChannelSession(Channel channel) {
-        Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
-        return sessionAttr.get();
-    }
+	/**
+	 * 获取会话
+	 */
+	public static GameSession getChannelSession(Channel channel) {
+		Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
+		return sessionAttr.get();
+	}
 
-    /**
-     * 移除会话
-     */
-    public static void removeChannelSession(Channel channel) {
-        Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
-        if (sessionAttr != null) {
-            sessionAttr.remove();
-        }
-    }
+	/**
+	 * 移除会话
+	 */
+	public static void removeChannelSession(Channel channel) {
+		Attribute<GameSession> sessionAttr = channel.attr(SESSION_KEY);
+		if (sessionAttr != null) {
+			sessionAttr.remove();
+		}
+	}
 
-    /**
-     * 获得IP地址
-     */
-    public static String getIP(Channel channel) {
-        return ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
-    }
+	/**
+	 * 获得IP地址
+	 */
+	public static String getIP(Channel channel) {
+		return ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
+	}
 
-    public static String getAccount(Channel channel) {
-        GameSession session = getChannelSession(channel);
-        if (session != null) {
-            return session.getAccount();
-        }
-        return "";
-    }
+	public static String getAccount(Channel channel) {
+		GameSession session = getChannelSession(channel);
+		if (session != null) {
+			return session.getAccount();
+		}
+		return "";
+	}
 }

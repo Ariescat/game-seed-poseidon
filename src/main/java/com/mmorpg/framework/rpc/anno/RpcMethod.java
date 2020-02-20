@@ -18,8 +18,8 @@ import java.lang.annotation.Target;
 @Component
 public @interface RpcMethod {
 
-    /**
-     * @return 远程方法调用 唯一ID 不能为0
-     */
-    int value();
+	/**
+	 * @return 远程方法调用 唯一ID 不能为0
+	 */
+	int value();
 }

@@ -8,7 +8,7 @@ import io.netty.channel.Channel;
  */
 public class CheatUtils {
 
-    public static void sendCheatAndClose(Channel channel) {
+	public static void sendCheatAndClose(Channel channel) {
 
-    }
+	}
 }

@@ -6,7 +6,7 @@ package com.mmorpg.logic.moudle.cheat;
  */
 public interface ISerialNumberHandler {
 
-    int handle(int recv, int salt, int random);
+	int handle(int recv, int salt, int random);
 
-    int generate(int recv, int salt, int random);
+	int generate(int recv, int salt, int random);
 }

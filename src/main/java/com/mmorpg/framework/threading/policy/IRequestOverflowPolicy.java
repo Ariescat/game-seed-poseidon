@@ -5,5 +5,5 @@ import com.mmorpg.framework.threading.Sprite;
 
 public interface IRequestOverflowPolicy {
 
-    void handle(Sprite sprite, IRequestToGod request);
+	void handle(Sprite sprite, IRequestToGod request);
 }

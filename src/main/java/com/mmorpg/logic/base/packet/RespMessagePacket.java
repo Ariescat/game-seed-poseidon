@@ -9,7 +9,7 @@ import com.mmorpg.logic.base.message.MessageType;
  */
 public class RespMessagePacket {
 
-    public void init(MessageType messageType, MessageId msgId, Object[] args) {
+	public void init(MessageType messageType, MessageId msgId, Object[] args) {
 
-    }
+	}
 }

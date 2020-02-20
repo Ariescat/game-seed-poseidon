@@ -8,10 +8,10 @@ import java.util.concurrent.Executor;
  */
 public class RpcFutures {
 
-    static Executor currentThreadExecutor = new Executor() {
-        @Override
-        public void execute(Runnable command) {
-            command.run();
-        }
-    };
+	static Executor currentThreadExecutor = new Executor() {
+		@Override
+		public void execute(Runnable command) {
+			command.run();
+		}
+	};
 }

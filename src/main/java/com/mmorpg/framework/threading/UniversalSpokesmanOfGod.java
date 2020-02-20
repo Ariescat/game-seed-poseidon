@@ -12,9 +12,13 @@ public abstract class UniversalSpokesmanOfGod implements ISpokesmanOfGod {
 
 	private final static Logger log = LoggerFactory.getLogger(UniversalSpokesmanOfGod.class);
 
-	/** 是否还在运行 */
+	/**
+	 * 是否还在运行
+	 */
 	private volatile AtomicBoolean running = new AtomicBoolean(false);
-	/** 绑定的线程(只有isService()返回为true时，才有绑定线程) */
+	/**
+	 * 绑定的线程(只有isService()返回为true时，才有绑定线程)
+	 */
 	private Thread bindThread;
 
 	private long lastExecuteTimeMillis = System.currentTimeMillis();

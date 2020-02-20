@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Rpc {
 
-    private final static Logger log = LoggerFactory.getLogger(Rpc.class);
+	private final static Logger log = LoggerFactory.getLogger(Rpc.class);
 
 //    public static
 }

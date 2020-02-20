@@ -9,34 +9,34 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class SimpleThreadFactory implements ThreadFactory {
 
-    private final AtomicInteger threadNumber = new AtomicInteger(1);
-    private ThreadGroup group;
-    private String groupName;
+	private final AtomicInteger threadNumber = new AtomicInteger(1);
+	private ThreadGroup group;
+	private String groupName;
 
-    public SimpleThreadFactory(String groupName) {
-        init();
-        this.groupName = groupName;
-    }
+	public SimpleThreadFactory(String groupName) {
+		init();
+		this.groupName = groupName;
+	}
 
-    private void init() {
-        Executors.defaultThreadFactory();
-        SecurityManager securityManager = System.getSecurityManager();//安全管理器
-        group = securityManager == null
-                ? Thread.currentThread().getThreadGroup()
-                : securityManager.getThreadGroup();
-    }
+	private void init() {
+		Executors.defaultThreadFactory();
+		SecurityManager securityManager = System.getSecurityManager();//安全管理器
+		group = securityManager == null
+			? Thread.currentThread().getThreadGroup()
+			: securityManager.getThreadGroup();
+	}
 
-    @Override
-    public Thread newThread(Runnable runnable) {
-        String threadName = groupName + "-thread-" + threadNumber.getAndIncrement();
-        Thread t = new Thread(group, runnable, threadName);
-        if (t.isDaemon()) {
-            t.setDaemon(false);
-        }
-        if (t.getPriority() != Thread.NORM_PRIORITY) {
-            t.setPriority(Thread.NORM_PRIORITY);
-        }
-        return t;
-    }
+	@Override
+	public Thread newThread(Runnable runnable) {
+		String threadName = groupName + "-thread-" + threadNumber.getAndIncrement();
+		Thread t = new Thread(group, runnable, threadName);
+		if (t.isDaemon()) {
+			t.setDaemon(false);
+		}
+		if (t.getPriority() != Thread.NORM_PRIORITY) {
+			t.setPriority(Thread.NORM_PRIORITY);
+		}
+		return t;
+	}
 
 }

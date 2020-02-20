@@ -8,9 +8,9 @@ import com.mmorpg.logic.base.login.GameSession;
  */
 public abstract class AbstractPacket {
 
-    public abstract Short getCommand();
+	public abstract Short getCommand();
 
-    public abstract void executeBeforeLogin(GameSession session);
+	public abstract void executeBeforeLogin(GameSession session);
 
-    public abstract Response write();
+	public abstract Response write();
 }

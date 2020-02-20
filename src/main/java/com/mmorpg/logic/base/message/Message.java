@@ -10,9 +10,9 @@ import com.mmorpg.logic.base.packet.RespMessagePacket;
  */
 public class Message {
 
-    public static RespMessagePacket buildMessagePacket(MessageType messageType, MessageId msgId, Object... args) {
-        RespMessagePacket packet = PacketFactory.createPacket(PacketId.RESP_MESSAGE);
-        packet.init(messageType, msgId, args);
-        return packet;
-    }
+	public static RespMessagePacket buildMessagePacket(MessageType messageType, MessageId msgId, Object... args) {
+		RespMessagePacket packet = PacketFactory.createPacket(PacketId.RESP_MESSAGE);
+		packet.init(messageType, msgId, args);
+		return packet;
+	}
 }

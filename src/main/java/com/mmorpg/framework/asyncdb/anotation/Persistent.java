@@ -13,13 +13,13 @@ import java.lang.annotation.*;
 @Documented
 public @interface Persistent {
 
-    /**
-     * 是否是异步持久化
-     */
-    boolean asyn() default true;
+	/**
+	 * 是否是异步持久化
+	 */
+	boolean asyn() default true;
 
-    /**
-     * 获取数据库同步器类型
-     */
-    Class<? extends Synchronizer> syncClass();
+	/**
+	 * 获取数据库同步器类型
+	 */
+	Class<? extends Synchronizer> syncClass();
 }

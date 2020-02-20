@@ -6,8 +6,8 @@ package com.mmorpg.logic.base;
  */
 public class Constant {
 
-    /**
-     * 两倍CPU核数
-     */
-    public static int TWICE_CPU = Runtime.getRuntime().availableProcessors() * 2;
+	/**
+	 * 两倍CPU核数
+	 */
+	public static int TWICE_CPU = Runtime.getRuntime().availableProcessors() * 2;
 }

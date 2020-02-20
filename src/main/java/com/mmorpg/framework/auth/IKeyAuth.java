@@ -6,13 +6,13 @@ package com.mmorpg.framework.auth;
  */
 public interface IKeyAuth {
 
-    /**
-     * 生成Key
-     */
-    int genKey();
+	/**
+	 * 生成Key
+	 */
+	int genKey();
 
-    /**
-     * 还原Key
-     */
-    int restoreSalt(int key);
+	/**
+	 * 还原Key
+	 */
+	int restoreSalt(int key);
 }

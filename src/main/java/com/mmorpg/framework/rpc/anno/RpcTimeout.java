@@ -16,8 +16,8 @@ import java.lang.annotation.Target;
 @Component
 public @interface RpcTimeout {
 
-    /**
-     * @return 重写TimeOut时间 毫秒mill
-     */
-    int value();
+	/**
+	 * @return 重写TimeOut时间 毫秒mill
+	 */
+	int value();
 }

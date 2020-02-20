@@ -6,11 +6,11 @@ package com.mmorpg.logic.base.packet;
  */
 public class PacketFactory {
 
-    public static RespMessagePacket createPacket(short packetId) {
-        return null;
-    }
+	public static RespMessagePacket createPacket(short packetId) {
+		return null;
+	}
 
-    public static boolean isPacketEncryptEnabled() {
-        return false;
-    }
+	public static boolean isPacketEncryptEnabled() {
+		return false;
+	}
 }

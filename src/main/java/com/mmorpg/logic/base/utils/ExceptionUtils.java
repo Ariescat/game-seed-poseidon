@@ -9,10 +9,10 @@ import org.slf4j.LoggerFactory;
  */
 public class ExceptionUtils {
 
-    private final static Logger logger = LoggerFactory.getLogger(ExceptionUtils.class);
+	private final static Logger log = LoggerFactory.getLogger(ExceptionUtils.class);
 
-    public static void log(Throwable t) {
-        logger.info("", t);
-    }
+	public static void log(Throwable t) {
+		log.info("", t);
+	}
 
 }

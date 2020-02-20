@@ -10,41 +10,41 @@ import com.mmorpg.logic.base.login.GameSessionStatusUpdateCause;
  */
 public class Player {
 
-    private String account;
+	private String account;
 
-    private GameSession gameSession;
-    private CrossInfo crossInfo;
+	private GameSession gameSession;
+	private CrossInfo crossInfo;
 
-    public long getId() {
-        return 0;
-    }
+	public long getId() {
+		return 0;
+	}
 
-    public void logout() {
+	public void logout() {
 
-    }
+	}
 
-    public String getAccount() {
-        return account;
-    }
+	public String getAccount() {
+		return account;
+	}
 
-    public void setAccount(String account) {
-        this.account = account;
-    }
+	public void setAccount(String account) {
+		this.account = account;
+	}
 
-    public GameSession getGameSession() {
-        return gameSession;
-    }
+	public GameSession getGameSession() {
+		return gameSession;
+	}
 
-    public void setSession(GameSession gameSession, GameSessionStatusUpdateCause cause) {
-        this.gameSession = gameSession;
-    }
+	public void setSession(GameSession gameSession, GameSessionStatusUpdateCause cause) {
+		this.gameSession = gameSession;
+	}
 
-    public CrossInfo getCrossInfo() {
-        return crossInfo;
-    }
+	public CrossInfo getCrossInfo() {
+		return crossInfo;
+	}
 
-    public void setCrossInfo(CrossInfo crossInfo) {
-        this.crossInfo = crossInfo;
-    }
+	public void setCrossInfo(CrossInfo crossInfo) {
+		this.crossInfo = crossInfo;
+	}
 
 }

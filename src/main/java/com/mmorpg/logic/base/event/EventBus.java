@@ -6,5 +6,5 @@ package com.mmorpg.logic.base.event;
  */
 public interface EventBus {
 
-    void post(Event event);
+	void post(Event event);
 }

@@ -8,22 +8,22 @@ import com.mmorpg.framework.threading.IRequestToGod;
  */
 public class RequestEnterWorld implements IRequestToGod {
 
-    private final AbstractPacket packet;
-    private final GameSession session;
+	private final AbstractPacket packet;
+	private final GameSession session;
 
-    public RequestEnterWorld(final GameSession session, final AbstractPacket packet) {
-        this.session = session;
-        this.packet = packet;
-    }
+	public RequestEnterWorld(final GameSession session, final AbstractPacket packet) {
+		this.session = session;
+		this.packet = packet;
+	}
 
-    public boolean execute() {
-        packet.executeBeforeLogin(session);
-        return true;
-    }
+	public boolean execute() {
+		packet.executeBeforeLogin(session);
+		return true;
+	}
 
-    @Override
-    public String toString() {
-        return "RequestEnterWorld[packet = " + packet + "]";
-    }
+	@Override
+	public String toString() {
+		return "RequestEnterWorld[packet = " + packet + "]";
+	}
 
 }

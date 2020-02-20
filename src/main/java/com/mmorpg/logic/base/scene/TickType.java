@@ -6,10 +6,10 @@ package com.mmorpg.logic.base.scene;
  */
 public enum TickType {
 
-    MESSAGE,
-    MOVE,
-    PLAYER,
-    NPC,
-    DROP_ITEM,
-    SCENE_BUFF;
+	MESSAGE,
+	MOVE,
+	PLAYER,
+	NPC,
+	DROP_ITEM,
+	SCENE_BUFF;
 }

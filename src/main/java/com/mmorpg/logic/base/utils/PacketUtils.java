@@ -9,7 +9,7 @@ import io.netty.channel.Channel;
  */
 public class PacketUtils {
 
-    public static void sendAndClose(Channel channel, RespMessagePacket packet) {
+	public static void sendAndClose(Channel channel, RespMessagePacket packet) {
 
-    }
+	}
 }

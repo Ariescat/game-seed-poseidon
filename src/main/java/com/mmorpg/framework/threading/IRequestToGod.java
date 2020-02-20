@@ -5,9 +5,10 @@ package com.mmorpg.framework.threading;
  */
 public interface IRequestToGod {
 
-    /**
-     * 执行请求
-     * @return 返回是否需要计数
-     */
-    boolean execute();
+	/**
+	 * 执行请求
+	 *
+	 * @return 返回是否需要计数
+	 */
+	boolean execute();
 }

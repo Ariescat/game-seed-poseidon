@@ -6,6 +6,6 @@ package com.mmorpg.logic.base.utils.random;
  */
 public interface ProEntity {
 
-    int getPro();
+	int getPro();
 
 }

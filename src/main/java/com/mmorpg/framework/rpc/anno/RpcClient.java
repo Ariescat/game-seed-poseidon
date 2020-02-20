@@ -18,5 +18,5 @@ import java.lang.annotation.Target;
 @Component
 public @interface RpcClient {
 
-    String value();
+	String value();
 }

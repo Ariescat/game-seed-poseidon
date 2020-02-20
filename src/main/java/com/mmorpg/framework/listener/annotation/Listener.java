@@ -10,11 +10,11 @@ import java.lang.annotation.*;
 @Documented
 @Component
 public @interface Listener {
-	
+
 	public final static int MIN_PRIORITY = 1;
 	public final static int MINOR_PRIORITY = 3;
 	public final static int NORM_PRIORITY = 5;
 	public final static int MAX_PRIORITY = 7;
 
-	int index() default NORM_PRIORITY;		// 顺序，数字越大，排到越前
+	int index() default NORM_PRIORITY; // 顺序，数字越大，排到越前
 }

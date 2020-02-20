@@ -13,11 +13,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class Start {
 
-    private final static Logger logger = LoggerFactory.getLogger(Start.class);
+	private final static Logger log = LoggerFactory.getLogger(Start.class);
 
-    private static ConfigurableApplicationContext context;
+	private static ConfigurableApplicationContext context;
 
-    public static void main(String[] args) {
-        context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    }
+	public static void main(String[] args) {
+		context = new ClassPathXmlApplicationContext("applicationContext.xml");
+	}
 }

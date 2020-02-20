@@ -6,5 +6,5 @@ package com.mmorpg.logic.base.business;
  */
 public interface IBusinessMessage {
 
-    void execute();
+	void execute();
 }

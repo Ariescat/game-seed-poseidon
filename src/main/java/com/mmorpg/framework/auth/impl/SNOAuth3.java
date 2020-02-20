@@ -8,17 +8,17 @@ import com.mmorpg.framework.auth.ISNOAuth;
  */
 public class SNOAuth3 implements ISNOAuth {
 
-    @Override
-    public int genSNO(int inc, int salt) {
-        inc <<= 5;
-        inc ^= salt;
-        return inc;
-    }
+	@Override
+	public int genSNO(int inc, int salt) {
+		inc <<= 5;
+		inc ^= salt;
+		return inc;
+	}
 
-    @Override
-    public int restoreSNO(int sno, int salt) {
-        sno ^= salt;
-        sno >>>= 5;
-        return sno;
-    }
+	@Override
+	public int restoreSNO(int sno, int salt) {
+		sno ^= salt;
+		sno >>>= 5;
+		return sno;
+	}
 }

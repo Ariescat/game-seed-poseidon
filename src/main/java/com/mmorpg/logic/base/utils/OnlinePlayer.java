@@ -10,32 +10,32 @@ import com.mmorpg.logic.base.login.GameSessionStatusUpdateCause;
  */
 public class OnlinePlayer {
 
-    private final static OnlinePlayer instance = new OnlinePlayer();
+	private final static OnlinePlayer instance = new OnlinePlayer();
 
-    public static OnlinePlayer getInstance() {
-        return instance;
-    }
+	public static OnlinePlayer getInstance() {
+		return instance;
+	}
 
-    private OnlinePlayer() {
-    }
+	private OnlinePlayer() {
+	}
 
-    public boolean registerSession(Player player, GameSession session) {
-        return false;
-    }
+	public boolean registerSession(Player player, GameSession session) {
+		return false;
+	}
 
-    public void removeSession(GameSession session, GameSessionStatusUpdateCause cause) {
+	public void removeSession(GameSession session, GameSessionStatusUpdateCause cause) {
 
-    }
+	}
 
-    public int getOnlinePlayerCount() {
-        return 0;
-    }
+	public int getOnlinePlayerCount() {
+		return 0;
+	}
 
-    public boolean isSameIPMax(String ip) {
-        return false;
-    }
+	public boolean isSameIPMax(String ip) {
+		return false;
+	}
 
-    public void timeoutReset(Player player, GameSessionStatusUpdateCause cause) {
+	public void timeoutReset(Player player, GameSessionStatusUpdateCause cause) {
 
-    }
+	}
 }

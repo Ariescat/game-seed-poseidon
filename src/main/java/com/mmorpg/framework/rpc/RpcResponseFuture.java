@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
  */
 public interface RpcResponseFuture<T> extends Future<T> {
 
-    long getRequestID();
+	long getRequestID();
 
-    void addListener(RpcListener listener);
+	void addListener(RpcListener listener);
 }

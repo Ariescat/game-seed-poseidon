@@ -6,7 +6,7 @@ package com.mmorpg.logic.base.cross;
  */
 public class CrossInfo {
 
-    public boolean isCrossed() {
-        return false;
-    }
+	public boolean isCrossed() {
+		return false;
+	}
 }

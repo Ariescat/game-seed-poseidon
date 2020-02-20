@@ -17,37 +17,37 @@ import java.util.Map;
 @Component
 public class CloseService implements ApplicationContextAware, InitializingBean {
 
-    private Logger log = LoggerFactory.getLogger(CloseService.class);
+	private Logger log = LoggerFactory.getLogger(CloseService.class);
 
-    private ApplicationContext applicationContext;
+	private ApplicationContext applicationContext;
 
-    private List<ICloseEvent> closeEvents = new ArrayList<ICloseEvent>();
+	private List<ICloseEvent> closeEvents = new ArrayList<ICloseEvent>();
 
-    public void onServerClose() {
-        for (ICloseEvent event : this.closeEvents) {
-            StopWatch sw = new StopWatch();
-            sw.start();
-            event.onServerClose();
-            sw.stop();
-            log.info("{} close cost {} ms!", event.getClass().getSimpleName(), sw.getTotalTimeMillis());
-        }
-    }
+	public void onServerClose() {
+		for (ICloseEvent event : this.closeEvents) {
+			StopWatch sw = new StopWatch();
+			sw.start();
+			event.onServerClose();
+			sw.stop();
+			log.info("{} close cost {} ms!", event.getClass().getSimpleName(), sw.getTotalTimeMillis());
+		}
+	}
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        Map<String, ICloseEvent> beans = applicationContext.getBeansOfType(ICloseEvent.class);
-        if (beans != null && beans.size() > 0) {
-            Iterator<ICloseEvent> iterator = beans.values().iterator();
-            while (iterator.hasNext()) {
-                ICloseEvent closeEvent = iterator.next();
-                closeEvents.add(closeEvent);
-            }
-        }
-    }
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Map<String, ICloseEvent> beans = applicationContext.getBeansOfType(ICloseEvent.class);
+		if (beans != null && beans.size() > 0) {
+			Iterator<ICloseEvent> iterator = beans.values().iterator();
+			while (iterator.hasNext()) {
+				ICloseEvent closeEvent = iterator.next();
+				closeEvents.add(closeEvent);
+			}
+		}
+	}
 
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
+	}
 }

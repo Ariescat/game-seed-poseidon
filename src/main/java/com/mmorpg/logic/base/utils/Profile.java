@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
  */
 public class Profile {
 
-    private final static Logger logger = LoggerFactory.getLogger("Scene-Profile-Log");
+	private final static Logger log = LoggerFactory.getLogger("Scene-Profile-Log");
 
-    public static void logTooLong(TickType type, Scene scene, long time) {
+	public static void logTooLong(TickType type, Scene scene, long time) {
 
-    }
+	}
 }

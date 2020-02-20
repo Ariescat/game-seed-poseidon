@@ -4,74 +4,74 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 public class AsynDBEntity {
 
-    private static final AtomicReferenceFieldUpdater<AsynDBEntity, AsynDBState> stateUpdater =
-            AtomicReferenceFieldUpdater.newUpdater(AsynDBEntity.class, AsynDBState.class, "state");
+	private static final AtomicReferenceFieldUpdater<AsynDBEntity, AsynDBState> stateUpdater =
+		AtomicReferenceFieldUpdater.newUpdater(AsynDBEntity.class, AsynDBState.class, "state");
 
-    /**
-     * 实体状态
-     */
-    private transient volatile AsynDBState state = AsynDBState.NOMAL;
+	/**
+	 * 实体状态
+	 */
+	private transient volatile AsynDBState state = AsynDBState.NOMAL;
 
-    private transient Synchronizer synchronizer;
+	private transient Synchronizer synchronizer;
 
-    private transient SyncQueue suncQueue;
+	private transient SyncQueue suncQueue;
 
-    public boolean submit(Operation operation) {
-        AsynDBState currentState = null;
+	public boolean submit(Operation operation) {
+		AsynDBState currentState = null;
 
-        do {
-            currentState = state;
-            if (!operation.isCanOperationAt(currentState)) {
-                throw new RuntimeException("[" + this + "] submit exception" + currentState + " " + operation);
-            }
-        } while (operation.isNeedToChangeAt(currentState) && !stateUpdater.compareAndSet(this, currentState, operation.STATE));
+		do {
+			currentState = state;
+			if (!operation.isCanOperationAt(currentState)) {
+				throw new RuntimeException("[" + this + "] submit exception" + currentState + " " + operation);
+			}
+		} while (operation.isNeedToChangeAt(currentState) && !stateUpdater.compareAndSet(this, currentState, operation.STATE));
 
-        return currentState == AsynDBState.NOMAL;
-    }
+		return currentState == AsynDBState.NOMAL;
+	}
 
-    public boolean trySync(int maxTime) {
-        int trySyncCount = 0;
+	public boolean trySync(int maxTime) {
+		int trySyncCount = 0;
 
-        AsynDBState currentState;
-        do {
-            currentState = this.state;
-        } while (!stateUpdater.compareAndSet(this, currentState, currentState != AsynDBState.DELETE ? AsynDBState.NOMAL : AsynDBState.DELETED));
+		AsynDBState currentState;
+		do {
+			currentState = this.state;
+		} while (!stateUpdater.compareAndSet(this, currentState, currentState != AsynDBState.DELETE ? AsynDBState.NOMAL : AsynDBState.DELETED));
 
-        while (trySyncCount++ < maxTime) {
-            if (currentState.doOperation(this.synchronizer, this)) {
-                return true;
-            }
-        }
+		while (trySyncCount++ < maxTime) {
+			if (currentState.doOperation(this.synchronizer, this)) {
+				return true;
+			}
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    public Synchronizer getSynchronizer() {
-        return this.synchronizer;
-    }
+	public Synchronizer getSynchronizer() {
+		return this.synchronizer;
+	}
 
-    public void setSynchronizer(Synchronizer synchronizer) {
-        this.synchronizer = synchronizer;
-    }
+	public void setSynchronizer(Synchronizer synchronizer) {
+		this.synchronizer = synchronizer;
+	}
 
-    public void serialize() {
+	public void serialize() {
 
-    }
+	}
 
-    public int getHash() {
-        return hashCode();
-    }
+	public int getHash() {
+		return hashCode();
+	}
 
-    public AsynDBState getAsynDBState() {
-        return state;
-    }
+	public AsynDBState getAsynDBState() {
+		return state;
+	}
 
-    public SyncQueue getSyncQueue() {
-        return suncQueue;
-    }
+	public SyncQueue getSyncQueue() {
+		return suncQueue;
+	}
 
-    public void setSyncQueue(SyncQueue suncQueue) {
-        this.suncQueue = suncQueue;
+	public void setSyncQueue(SyncQueue suncQueue) {
+		this.suncQueue = suncQueue;
 
-    }
+	}
 }

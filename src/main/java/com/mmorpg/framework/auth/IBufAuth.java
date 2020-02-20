@@ -6,13 +6,13 @@ package com.mmorpg.framework.auth;
  */
 public interface IBufAuth {
 
-    /**
-     * 加密
-     */
-    void encrypt(byte[] input, int off, int len, int xor);
+	/**
+	 * 加密
+	 */
+	void encrypt(byte[] input, int off, int len, int xor);
 
-    /**
-     * 解密
-     */
-    void decrypt(byte[] input, int off, int len, int xor);
+	/**
+	 * 解密
+	 */
+	void decrypt(byte[] input, int off, int len, int xor);
 }

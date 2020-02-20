@@ -9,23 +9,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigService {
 
-    public int getMaxOnlineCount() {
-        return 0;
-    }
+	public int getMaxOnlineCount() {
+		return 0;
+	}
 
-    public boolean isFlushStatus() {
-        return false;
-    }
+	public boolean isFlushStatus() {
+		return false;
+	}
 
-    public long getPlugInterval() {
-        return 0;
-    }
+	public long getPlugInterval() {
+		return 0;
+	}
 
-    public int getPlugThreshold() {
-        return 0;
-    }
+	public int getPlugThreshold() {
+		return 0;
+	}
 
-    public String getOriServerFlag() {
-        return null;
-    }
+	public String getOriServerFlag() {
+		return null;
+	}
 }
