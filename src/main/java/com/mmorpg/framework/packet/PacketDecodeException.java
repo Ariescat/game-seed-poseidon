@@ -1,4 +1,4 @@
-package com.mmorpg.logic.base.packet;
+package com.mmorpg.framework.packet;
 
 /**
  * @author Ariescat

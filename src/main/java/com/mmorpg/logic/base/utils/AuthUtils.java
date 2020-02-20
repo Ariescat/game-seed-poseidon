@@ -1,5 +1,12 @@
 package com.mmorpg.logic.base.utils;
 
+import com.mmorpg.framework.auth.IBufAuth;
+import com.mmorpg.framework.auth.IKeyAuth;
+import com.mmorpg.framework.auth.ISNOAuth;
+import com.mmorpg.framework.auth.impl.BufAuth2;
+import com.mmorpg.framework.auth.impl.KeyAuth2;
+import com.mmorpg.framework.auth.impl.SNOAuth1;
+
 /**
  * @author Ariescat
  * @version 2020/2/19 15:12

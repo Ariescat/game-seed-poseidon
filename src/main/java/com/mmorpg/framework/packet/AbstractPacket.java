@@ -1,7 +1,6 @@
 package com.mmorpg.framework.packet;
 
 import com.mmorpg.logic.base.login.GameSession;
-import com.mmorpg.logic.base.packet.Response;
 
 /**
  * @author Ariescat

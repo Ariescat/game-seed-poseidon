@@ -4,21 +4,22 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mmorpg.framework.packet.AbstractPacket;
+import com.mmorpg.framework.packet.PacketDecodeException;
+import com.mmorpg.framework.packet.Response;
 import com.mmorpg.logic.base.Context;
 import com.mmorpg.logic.base.cross.CrossInfo;
 import com.mmorpg.logic.base.domain.Player;
 import com.mmorpg.logic.base.net.NullChannel;
-import com.mmorpg.logic.base.packet.PacketDecodeException;
 import com.mmorpg.logic.base.packet.PacketFactory;
-import com.mmorpg.logic.base.packet.Response;
 import com.mmorpg.logic.base.service.ConfigService;
 import com.mmorpg.logic.base.utils.*;
+import com.mmorpg.logic.base.utils.random.RandomUtils;
+import com.mmorpg.logic.moudle.cheat.ISerialNumberHandler;
 import com.mmorpg.logic.moudle.cheat.PacketCheatLogEvent;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -102,7 +103,6 @@ public class GameSession {
      * 序列号
      */
     private final AtomicInteger serialNO = new AtomicInteger(0);
-
     private ISerialNumberHandler serialNumberHandler;
     private int serialNumberRandom;
     private ISerialNumberHandler nextSerialNumberHandler;

@@ -27,8 +27,6 @@ public abstract class AbstractBusinessService implements IBusinessService, Initi
     private AtomicBoolean running = new AtomicBoolean(false);
     /**
      * 消费线程
-     * <p>
-     * TODO 可以考虑优化成线程组，用hash分发来决定consumerThread
      */
     private Thread consumerThread = null;
 

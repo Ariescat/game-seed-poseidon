@@ -1,4 +1,4 @@
-package com.mmorpg.logic.cross.client;
+package com.mmorpg.logic.base.cross;
 
 /**
  * @author Ariescat
