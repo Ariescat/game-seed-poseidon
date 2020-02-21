@@ -100,6 +100,12 @@
 			<artifactId>netty-all</artifactId>
 			<version>4.0.19.Final</version>
 		</dependency>
+		<!--http-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.1.2</version>
+		</dependency>
 
 		<!--log-->
 		<dependency>
