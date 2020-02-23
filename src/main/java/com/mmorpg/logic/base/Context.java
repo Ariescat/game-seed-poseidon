@@ -1,7 +1,7 @@
 package com.mmorpg.logic.base;
 
 import com.mmorpg.framework.asyncdb.AsyncDBService;
-import com.mmorpg.logic.base.event.EventBus;
+import com.mmorpg.framework.event.EventBus;
 import com.mmorpg.logic.base.service.ConfigService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;

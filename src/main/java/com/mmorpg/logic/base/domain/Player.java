@@ -1,8 +1,8 @@
 package com.mmorpg.logic.base.domain;
 
-import com.mmorpg.logic.base.cross.CrossInfo;
-import com.mmorpg.logic.base.login.GameSession;
-import com.mmorpg.logic.base.login.GameSessionStatusUpdateCause;
+import com.mmorpg.framework.cross.CrossInfo;
+import com.mmorpg.framework.net.session.GameSession;
+import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
 
 /**
  * @author Ariescat

@@ -1,5 +1,6 @@
 package com.mmorpg.framework.http.asynchttp;
 
+import com.google.common.base.Charsets;
 import com.mmorpg.framework.http.HttpUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.http.HttpEntity;
@@ -28,7 +29,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.concurrent.Future;
 
@@ -98,7 +98,7 @@ public class AsyncHttpClientUtils {
 
 		private volatile SimpleInputBuffer buf = new SimpleInputBuffer(256, new HeapByteBufferAllocator());
 
-		private static Charset DEFAULT = StandardCharsets.UTF_8;
+		private static Charset DEFAULT = Charsets.UTF_8;
 
 		@Override
 		protected void onResponseReceived(HttpResponse httpResponse) throws HttpException, IOException {

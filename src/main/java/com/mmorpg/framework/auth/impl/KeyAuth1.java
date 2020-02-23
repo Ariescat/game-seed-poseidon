@@ -1,8 +1,8 @@
 package com.mmorpg.framework.auth.impl;
 
 import com.mmorpg.framework.auth.IKeyAuth;
-import com.mmorpg.logic.base.utils.BitUtils;
-import com.mmorpg.logic.base.utils.random.RandomUtils;
+import com.mmorpg.framework.utils.BitUtils;
+import com.mmorpg.framework.utils.random.RandomUtils;
 
 /**
  * @author Ariescat

@@ -1,7 +1,7 @@
 package com.mmorpg.logic.base.scene;
 
-import com.mmorpg.framework.threading.UniversalSpokesmanOfGod;
-import com.mmorpg.logic.base.utils.Profile;
+import com.mmorpg.framework.thread.god.UniversalSpokesmanOfGod;
+import com.mmorpg.framework.utils.Profile;
 import org.apache.commons.lang.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

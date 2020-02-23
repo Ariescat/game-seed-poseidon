@@ -1,7 +1,7 @@
 package com.mmorpg.logic.moudle.cheat;
 
-import com.mmorpg.logic.base.event.Event;
-import com.mmorpg.logic.base.utils.TimeUtils;
+import com.mmorpg.framework.event.Event;
+import com.mmorpg.framework.utils.TimeUtils;
 
 /**
  * @author Ariescat

@@ -1,6 +1,6 @@
 package com.mmorpg.logic.moudle.cheat;
 
-import com.mmorpg.logic.base.utils.random.RandomUtils;
+import com.mmorpg.framework.utils.random.RandomUtils;
 
 /**
  * @author Ariescat

@@ -1,6 +1,6 @@
 package com.mmorpg.framework.asyncdb;
 
-import com.mmorpg.framework.threads.CoreThreadFactory;
+import com.mmorpg.framework.thread.threads.CoreThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

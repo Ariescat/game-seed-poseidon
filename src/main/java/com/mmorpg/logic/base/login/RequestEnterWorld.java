@@ -1,7 +1,8 @@
 package com.mmorpg.logic.base.login;
 
+import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.AbstractPacket;
-import com.mmorpg.framework.threading.IRequestToGod;
+import com.mmorpg.framework.thread.god.IRequestToGod;
 
 /**
  * 请求进入游戏世界的签证

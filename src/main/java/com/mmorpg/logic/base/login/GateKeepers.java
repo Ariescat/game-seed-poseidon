@@ -1,14 +1,15 @@
 package com.mmorpg.logic.base.login;
 
+import com.mmorpg.framework.utils.ConstantFrameWork;
+import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.AbstractPacket;
-import com.mmorpg.framework.threading.IRequestToGod;
-import com.mmorpg.framework.threading.Sprite;
-import com.mmorpg.framework.threading.WorldScene;
-import com.mmorpg.framework.threading.policy.IRequestOverflowPolicy;
-import com.mmorpg.framework.threading.policy.impl.DirectRunPolicy;
-import com.mmorpg.logic.base.Constant;
+import com.mmorpg.framework.packet.RespLoginAskPacket;
+import com.mmorpg.framework.thread.god.IRequestToGod;
+import com.mmorpg.framework.thread.god.Sprite;
+import com.mmorpg.framework.thread.god.WorldScene;
+import com.mmorpg.framework.thread.god.policy.IRequestOverflowPolicy;
+import com.mmorpg.framework.thread.god.policy.impl.DirectRunPolicy;
 import com.mmorpg.logic.base.domain.Player;
-import com.mmorpg.logic.base.packet.RespLoginAskPacket;
 
 /**
  * 门卫
@@ -25,7 +26,7 @@ public class GateKeepers extends Sprite {
 		this.index = index;
 	}
 
-	private static int num = Constant.TWICE_CPU;
+	private static int num = ConstantFrameWork.TWICE_CPU;
 	private static GateKeepers[] keepers;
 
 	public static void initialize() {

@@ -1,5 +1,6 @@
 package com.mmorpg.framework.http;
 
+import com.google.common.base.Charsets;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -17,7 +18,7 @@ import java.nio.charset.Charset;
  */
 public class StringResponseHandler implements ResponseHandler<String> {
 
-	private static Charset DEFAULT = Charset.forName("UTF-8");
+	private static Charset DEFAULT = Charsets.UTF_8;
 
 	@Override
 	public String handleResponse(HttpResponse httpResponse) throws ClientProtocolException, IOException {

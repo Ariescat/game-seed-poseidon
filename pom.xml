@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.odin</groupId>
-	<artifactId>gameserver</artifactId>
+	<artifactId>game-framework-odin</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<properties>
@@ -94,17 +94,28 @@
 			<version>5.1.12</version>
 		</dependency>
 
+		<!--http-->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpasyncclient</artifactId>
+			<version>4.1.2</version>
+		</dependency>
 		<!--netty-->
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
 			<version>4.0.19.Final</version>
 		</dependency>
-		<!--http-->
+		<!--protostuff-->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpasyncclient</artifactId>
-			<version>4.1.2</version>
+			<groupId>io.protostuff</groupId>
+			<artifactId>protostuff-runtime</artifactId>
+			<version>1.5.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.protostuff</groupId>
+			<artifactId>protostuff-core</artifactId>
+			<version>1.5.2</version>
 		</dependency>
 
 		<!--log-->
