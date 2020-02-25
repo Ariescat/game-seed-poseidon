@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * @author Ariescat
  * @version 2020/2/25 15:26
  */
-@CrossMsg(CrossMsgId.REQ_XXX_INFO)
+@CrossMsg(CrossMsgId.RPC_RESPONSE)
 public class RpcResponse extends ICrossMsg {
 
 	private final static Logger log = LoggerFactory.getLogger(RpcResponse.class);
@@ -66,12 +66,11 @@ public class RpcResponse extends ICrossMsg {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder()
-			.append(this.getClass().getName())
-			.append("{")
+			.append("RpcResponse{")
 			.append("reqId=").append(reqID)
-			.append(",ret=").append(ret);
+			.append(", ret=").append(ret);
 		if (error != null) {
-			sb.append(",error='").append(error).append('\'');
+			sb.append(", error='").append(error).append('\'');
 		}
 		sb.append("}");
 		return sb.toString();

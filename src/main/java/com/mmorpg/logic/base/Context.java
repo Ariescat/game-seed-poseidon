@@ -1,21 +1,60 @@
 package com.mmorpg.logic.base;
 
 import com.mmorpg.framework.asyncdb.AsyncDBService;
+import com.mmorpg.framework.cross.CrossClientManager;
+import com.mmorpg.framework.cross.center.CenterServerManager;
 import com.mmorpg.framework.event.EventBus;
 import com.mmorpg.logic.base.service.ConfigService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Collection;
 
+@Component
 public class Context implements ApplicationContextAware {
+
+	private static Context it;
 
 	/**
 	 * Spring 应用上下文
 	 */
 	private static ApplicationContext applicationContext;
+
+	/**
+	 * db相关
+	 */
+	@Autowired
+	public AsyncDBService asyncDBService;
+	/**
+	 * 跨服相关
+	 */
+	@Autowired
+	public CrossClientManager crossClientManager;
+	@Autowired
+	public CenterServerManager centerServerManager;
+	/**
+	 * 系统配置
+	 */
+	@Autowired
+	public ConfigService configService;
+	/**
+	 * 事件系统
+	 */
+	@Autowired
+	public EventBus eventBus;
+
+	@PostConstruct
+	public void init() {
+		it = this;
+	}
+
+	public static Context it() {
+		return it;
+	}
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -34,37 +73,4 @@ public class Context implements ApplicationContextAware {
 		return applicationContext.getBean(name, requiredType);
 	}
 
-	/*
-	 * ========================= 注入Spring组件 =========================
-	 */
-	private static AsyncDBService asyncDBService;
-	private static ConfigService configService;
-	private static EventBus eventBus;
-
-	public static AsyncDBService getAsyncDBService() {
-		return asyncDBService;
-	}
-
-	@Autowired
-	public void setAsyncDBService(AsyncDBService asyncDBService) {
-		Context.asyncDBService = asyncDBService;
-	}
-
-	public static ConfigService getConfigService() {
-		return configService;
-	}
-
-	@Autowired
-	public void setConfigService(ConfigService configService) {
-		Context.configService = configService;
-	}
-
-	public static EventBus getEventBus() {
-		return eventBus;
-	}
-
-	@Autowired
-	public void setEventBus(EventBus eventBus) {
-		Context.eventBus = eventBus;
-	}
 }

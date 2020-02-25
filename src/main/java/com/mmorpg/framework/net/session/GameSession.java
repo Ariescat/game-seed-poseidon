@@ -190,7 +190,7 @@ public class GameSession {
 		GameSession session = new GameSession("127.0.0.1", 5051);
 		session.setAccount(player.getAccount());
 		session.setStatus(GameSessionStatus.ENTERING_SCENE);
-		session.setServer(Context.getConfigService().getOriServerFlag());
+		session.setServer(Context.it().configService.getOriServerFlag());
 		session.genASKey();
 		return session;
 	}
@@ -236,7 +236,7 @@ public class GameSession {
 			return false;
 		}
 		if (response != null) {
-			if (Context.getConfigService().isFlushStatus()) {
+			if (Context.it().configService.isFlushStatus()) {
 				channel.writeAndFlush(response);
 			} else {
 				ChannelFuture writeFuture = channel.write(response);
@@ -328,7 +328,7 @@ public class GameSession {
 		if (sno != current) {
 			log.error("SNOMeta {} {} recvSerisNO:{} salt:{} serialNumberRandom:{} current:{} sno:{}",
 				account, serialNumberHandler.getClass().getSimpleName(), recvSerialNo, salt, serialNumberRandom, current, sno);
-			Context.getEventBus().post(new PacketCheatLogEvent(account, server, 1));
+			Context.it().eventBus.post(new PacketCheatLogEvent(account, server, 1));
 			CheatUtils.sendCheatAndClose(channel);
 		}
 	}
@@ -369,7 +369,7 @@ public class GameSession {
 	 * 返回false为未通过检测
 	 */
 	public boolean checkFrequency(AbstractPacket packet) {
-		final ConfigService configService = Context.getConfigService();
+		final ConfigService configService = Context.it().configService;
 		long curTime = TimeUtils.getCurrentMillisTime();
 		if (curTime - lastCheckTime > configService.getPlugInterval()) {
 			lastCheckTime = curTime;

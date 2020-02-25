@@ -8,21 +8,21 @@ public class BaseDBEntity extends AsynDBEntity {
 		if (isRobot() || isCross()) {
 			return;
 		}
-		Context.getAsyncDBService().insert(this);
+		Context.it().asyncDBService.insert(this);
 	}
 
 	public void update() {
 		if (isRobot()) {
 			return;
 		}
-		Context.getAsyncDBService().update(this);
+		Context.it().asyncDBService.update(this);
 	}
 
 	public void delete() {
 		if (isRobot()) {
 			return;
 		}
-		Context.getAsyncDBService().delete(this);
+		Context.it().asyncDBService.delete(this);
 	}
 
 	public void serialize() {

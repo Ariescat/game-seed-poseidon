@@ -46,7 +46,7 @@ public class LoginWatcher {
 	 * 处理登录逻辑
 	 */
 	public final void processLogin(Player player, GameSession session, RespLoginAskPacket packet) {
-		final int max = Context.getConfigService().getMaxOnlineCount();
+		final int max = Context.it().configService.getMaxOnlineCount();
 		if (max > 0 && OnlinePlayer.getInstance().getOnlinePlayerCount() >= max) {
 			RespMessagePacket msgPacket = Message.buildMessagePacket(MessageType.WARN, MessageId.ANOUNCEMENT, "服务器繁忙，请尝试登录其他服务器！");
 			PacketUtils.sendAndClose(session.getChannel(), msgPacket);

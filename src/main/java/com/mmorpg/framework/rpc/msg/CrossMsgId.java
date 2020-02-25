@@ -7,7 +7,8 @@ package com.mmorpg.framework.rpc.msg;
 public interface CrossMsgId {
 
 	// ---------------------- system ----------------------
-	short RPC_RESPONSE = 1;
+	short RPC_METHOD_INVOKE_REQUEST = 1;
+	short RPC_RESPONSE = 2;
 
 	// ---------------------- other modules ----------------------
 	short REQ_XXX_INFO = 1001;
