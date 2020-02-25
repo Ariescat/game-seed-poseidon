@@ -30,12 +30,12 @@ public class SettableResponseFuture<T> extends AbstractFuture<T> implements RpcR
 	}
 
 	@Override
-	protected boolean set(T value) {
+	public boolean set(T value) {
 		return super.set(value);
 	}
 
 	@Override
-	protected boolean setException(Throwable throwable) {
+	public boolean setException(Throwable throwable) {
 		return super.setException(throwable);
 	}
 }

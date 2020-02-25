@@ -27,19 +27,11 @@ public class Rpc {
 	}
 
 	public static RpcCallResponseFuture asyncCallMethod(CrossClient client, int methodUid, Object... args) {
-		return asyncCall(client,
-			new RpcMethodInvokeRequest()
-				.setArgs(args)
-				.setMethodUid(methodUid),
-			2000L);
+		return asyncCall(client, new RpcMethodInvokeRequest(methodUid, args), 2000L);
 	}
 
 	public static void oneWayCallMethod(CrossClient client, int methodUid, Object... args) {
-		oneWayCall(client,
-			new RpcMethodInvokeRequest()
-				.setArgs(args)
-				.setMethodUid(methodUid)
-		);
+		oneWayCall(client, new RpcMethodInvokeRequest(methodUid, args));
 	}
 
 	public static void oneWayCall(CrossClient client, RpcRequest request) {

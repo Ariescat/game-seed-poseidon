@@ -3,15 +3,19 @@ package com.mmorpg.framework.rpc.proxy;
 import com.google.common.reflect.AbstractInvocationHandler;
 import com.mmorpg.framework.cross.CrossClient;
 import com.mmorpg.framework.cross.RemoteServers;
+import com.mmorpg.framework.rpc.*;
 import com.mmorpg.framework.rpc.anno.RpcClient;
+import com.mmorpg.framework.rpc.anno.RpcTimeout;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.asm.Type;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Ariescat
@@ -30,7 +34,58 @@ public class RpcMethodInvokeHandler extends AbstractInvocationHandler {
 	}
 
 	@Override
-	protected Object handleInvocation(Object o, Method method, Object[] objects) throws Throwable {
+	protected Object handleInvocation(Object proxy, Method method, Object[] args) throws Throwable {
+		RpcCallResponseFuture rpcReposeFuture = null;
+		try {
+			// build rpc request
+			RpcMethodInvokeRequest msg;
+			Integer methodUid = MethodCache.method2uid.get(method);
+			if (methodUid == null) {
+				msg = new RpcMethodInvokeRequest(
+					interfaceClass.getName(),
+					getDesc(method),
+					method.getName(),
+					args);
+			} else {
+				msg = new RpcMethodInvokeRequest(methodUid, args);
+			}
+
+			// find cross client
+			CrossClient client = getCrossClient(method, args);
+			if (client == null) {
+				if (method.getReturnType() == RpcResponseFuture.class) {
+					SettableResponseFuture<Object> ret = RpcFutures.newSettableFuture();
+					ret.setException(new IOException("[RpcMethodInvokeHandler] client is null send msg fail: " + msg));
+					return ret;
+				} else {
+					log.error("[ RpcMethodInvokeHandler] client is null send msg fail [{}]", msg);
+					return null;
+				}
+			}
+
+			// rpc call
+			if (method.getReturnType() == Void.TYPE) {
+				//异步
+				Rpc.oneWayCall(client, msg);
+			} else {
+				long timeOutMill = 60000L;
+				RpcTimeout annotation = method.getAnnotation(RpcTimeout.class);
+				if (annotation != null) {
+					timeOutMill = annotation.value();
+				}
+				rpcReposeFuture = Rpc.asyncCall(client, msg, timeOutMill);
+				if (method.getReturnType() == RpcResponseFuture.class) {
+					return rpcReposeFuture;
+				} else {
+					return rpcReposeFuture.get(timeOutMill, TimeUnit.MILLISECONDS);
+				}
+			}
+		} catch (Exception e) {
+			if (rpcReposeFuture != null) {
+				rpcReposeFuture.exception(e);
+			}
+			log.error("", e);
+		}
 		return null;
 	}
 
