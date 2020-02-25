@@ -1,4 +1,4 @@
-package com.mmorpg.logic.moudle.cheat;
+package com.mmorpg.logic.base.cheat;
 
 import com.mmorpg.framework.event.Event;
 import com.mmorpg.framework.utils.TimeUtils;

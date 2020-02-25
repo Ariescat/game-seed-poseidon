@@ -1,4 +1,4 @@
-package com.mmorpg.logic.moudle.cheat;
+package com.mmorpg.logic.base.cheat;
 
 /**
  * @author Ariescat

@@ -7,8 +7,7 @@ package com.mmorpg.framework.rpc;
 public interface RpcListener {
 
 	/**
-	 * @param ret 可能时异常 在IO线程执行
-	 *            Exception or msg
+	 * @param ret retMsg or Exception 在IO线程执行
 	 */
 	void onRet(Object ret);
 }

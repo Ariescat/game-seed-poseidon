@@ -1,4 +1,4 @@
-package com.mmorpg.framework.net;
+package com.mmorpg.framework.net.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

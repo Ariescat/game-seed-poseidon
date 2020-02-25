@@ -2,7 +2,7 @@ package com.mmorpg.framework.packet;
 
 /**
  * @author Ariescat
- * @version 2020/2/19 12:02
+ * @version 2020/2/25 16:13
  */
-public class RespLoginAskPacket {
+public class RequestPacket {
 }

@@ -2,7 +2,7 @@ package com.mmorpg.framework.message;
 
 import com.mmorpg.framework.packet.PacketFactory;
 import com.mmorpg.framework.packet.PacketId;
-import com.mmorpg.framework.packet.RespMessagePacket;
+import com.mmorpg.framework.packet.impl.RespMessagePacket;
 
 /**
  * @author Ariescat

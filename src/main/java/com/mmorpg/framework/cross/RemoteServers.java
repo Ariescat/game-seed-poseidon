@@ -1,8 +1,7 @@
 package com.mmorpg.framework.cross;
 
-import com.mmorpg.framework.packet.PacketFactory;
-import com.mmorpg.framework.packet.PacketId;
 import com.mmorpg.framework.rpc.msg.ICrossBaseMsg;
+import com.mmorpg.framework.rpc.msg.ICrossPlayerMsg;
 import com.mmorpg.framework.rpc.msg.packet.CrossMsgPacket;
 import io.netty.channel.Channel;
 
@@ -12,15 +11,24 @@ import io.netty.channel.Channel;
  */
 public enum RemoteServers {
 
-	ACross,
+	XXXCross,
 	;
+
+	public static void sendCrossMsg(CrossClient crossClient, ICrossBaseMsg<?> msg) {
+//		TODO
+//		crossClient.sendPacket(createCrossMsgPacket(msg));
+	}
 
 	public static void sendCrossMsg(Channel channel, ICrossBaseMsg<?> msg) {
 		channel.writeAndFlush(createCrossMsgPacket(msg));
 	}
 
 	private static Object createCrossMsgPacket(ICrossBaseMsg<?> msg) {
-		CrossMsgPacket packet = PacketFactory.createPacket(PacketId.CROSS_PROTO_STUFF_PACKET);
-		return null;
+		CrossMsgPacket packet = CrossMsgPacket.of(msg);
+		long playerId = 0;
+		if (msg instanceof ICrossPlayerMsg) {
+			playerId = ((ICrossPlayerMsg) msg).getPlayerId();
+		}
+		return new DispatchPacket(playerId, packet);
 	}
 }

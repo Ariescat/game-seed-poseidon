@@ -1,6 +1,6 @@
 package com.mmorpg.framework.utils;
 
-import com.mmorpg.framework.packet.RespMessagePacket;
+import com.mmorpg.framework.packet.impl.RespMessagePacket;
 import io.netty.channel.Channel;
 
 /**

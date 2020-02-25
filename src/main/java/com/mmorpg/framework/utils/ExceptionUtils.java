@@ -11,8 +11,18 @@ public class ExceptionUtils {
 
 	private final static Logger log = LoggerFactory.getLogger(ExceptionUtils.class);
 
-	public static void log(Throwable t) {
-		log.info("", t);
+	private static StackTraceElement getCaller() {
+		return Thread.currentThread().getStackTrace()[3];
 	}
 
+	public static void log(Throwable t) {
+		log.error("Caller:{}\n", getCaller(), t);
+	}
+
+	public static void log(String msg, Object... args) {
+		Object[] dest = new Object[args.length + 1];
+		System.arraycopy(args, 0, dest, 1, args.length);
+		dest[0] = getCaller();
+		log.error("Caller:{}\n" + msg, dest);
+	}
 }

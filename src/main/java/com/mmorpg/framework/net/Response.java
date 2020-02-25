@@ -1,4 +1,4 @@
-package com.mmorpg.framework.packet;
+package com.mmorpg.framework.net;
 
 /**
  * @author Ariescat

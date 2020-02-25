@@ -23,14 +23,13 @@ public class RpcFutures {
 	// 定时检测timeOut
 	private static HashedWheelTimer futureTimeOutTimer;
 
-	private static final Map<Long, RpcCallResponseFuture> REQUEST_MAP = Maps.newConcurrentMap();
 	private static final AtomicLong REQUEST_ID_IDX = new AtomicLong(1);
-
+	private static final Map<Long, RpcCallResponseFuture> REQUEST_MAP = Maps.newConcurrentMap();
 	private static Cache<Long, RpcRequest> REQUEST_CACHE = CacheBuilder.newBuilder()
 		.expireAfterWrite(1, TimeUnit.MINUTES)
 		.build();
 
-	private static Timer REQUEST_CACHE_CLEAN_UP_TINER = new Timer(0, 1, TimeUnit.MINUTES);
+	private static Timer REQUEST_CACHE_CLEAN_UP_TIMER = new Timer(0, 1, TimeUnit.MINUTES);
 
 	static {
 		futureTimeOutTimer = new HashedWheelTimer();
@@ -73,12 +72,12 @@ public class RpcFutures {
 		future.addListener(new RpcListener() {
 			@Override
 			public void onRet(Object ret) {
-				getAndRemoveReq(future.getRequestID());
+				getAndRemoveResponseFuture(future.getRequestID());
 				// 延迟清理
 				if (!(ret instanceof TimeoutException)) {
 					REQUEST_CACHE.invalidate(future.getRequestID());
 				}
-				if (REQUEST_CACHE_CLEAN_UP_TINER.isTimeOut(System.currentTimeMillis())) {
+				if (REQUEST_CACHE_CLEAN_UP_TIMER.isTimeOut(System.currentTimeMillis())) {
 					REQUEST_CACHE.cleanUp();
 				}
 			}
@@ -92,5 +91,26 @@ public class RpcFutures {
 			}
 		}, maxCacheTimeMill, TimeUnit.MILLISECONDS);
 		return future;
+	}
+
+	private static void timeout(long requestID) {
+		RpcCallResponseFuture remove = getAndRemoveResponseFuture(requestID);
+		if (remove != null) {
+			remove.exception(new TimeoutException());
+		}
+	}
+
+	public static void timeout(RpcCallResponseFuture future) {
+		timeout(future.getRequestID());
+	}
+
+	public static RpcCallResponseFuture getAndRemoveResponseFuture(long requestID) {
+		return REQUEST_MAP.remove(requestID);
+	}
+
+	public static RpcRequest getAndRemoveRpcRequest(long requestID) {
+		RpcRequest rpcRequest = REQUEST_CACHE.getIfPresent(requestID);
+		REQUEST_CACHE.invalidate(requestID);
+		return rpcRequest;
 	}
 }

@@ -5,9 +5,10 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mmorpg.framework.cross.BaseCrossPacket;
+import com.mmorpg.framework.net.Request;
+import com.mmorpg.framework.net.Response;
+import com.mmorpg.framework.packet.PacketFactory;
 import com.mmorpg.framework.packet.PacketId;
-import com.mmorpg.framework.packet.Request;
-import com.mmorpg.framework.packet.Response;
 import com.mmorpg.framework.packet.anno.Packet;
 import com.mmorpg.framework.rpc.msg.CrossMsgFactory;
 import com.mmorpg.framework.rpc.msg.ICrossBaseMsg;
@@ -51,12 +52,15 @@ public class CrossMsgPacket extends BaseCrossPacket {
 
 	private ICrossBaseMsg<?> crossMsg;
 
-	private void init(ICrossBaseMsg<?> crossMsg) {
-		this.crossMsg = crossMsg;
-	}
-
 	public ICrossBaseMsg<?> getCrossMsg() {
 		return crossMsg;
+	}
+
+	public static CrossMsgPacket of(ICrossBaseMsg<?> crossMsg) {
+		CrossMsgPacket packet = PacketFactory.createPacket(PacketId.CROSS_PROTO_STUFF_PACKET);
+		assert packet != null;
+		packet.crossMsg = crossMsg;
+		return packet;
 	}
 
 	@Override

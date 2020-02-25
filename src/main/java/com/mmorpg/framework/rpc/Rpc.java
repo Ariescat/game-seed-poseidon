@@ -20,7 +20,7 @@ public class Rpc {
 		if (null == client) {
 			return null;
 		} else {
-			final RpcCallResponseFuture rpcReposeFuture = RpcFutures.newfuture(maxWaiteTimeMill, request);
+			final RpcCallResponseFuture rpcReposeFuture = RpcFutures.newFuture(maxWaiteTimeMill, request);
 			oneWayCall(client, request, rpcReposeFuture.getRequestID());
 			return rpcReposeFuture;
 		}
@@ -47,7 +47,7 @@ public class Rpc {
 	}
 
 	private static void oneWayCall(CrossClient client, RpcRequest request, long reqID) {
-		log.debug("RPC Call id:[(0]: {} msg:()", reqID, client, request);
+		log.debug("RPC Call reqID:[{}], client[{}], request:{}", reqID, client, request);
 		if (null != client) {
 			RemoteServers.sendCrossMsg(client, request);
 		}

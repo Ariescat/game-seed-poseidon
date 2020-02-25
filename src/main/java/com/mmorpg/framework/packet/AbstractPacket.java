@@ -1,5 +1,7 @@
 package com.mmorpg.framework.packet;
 
+import com.mmorpg.framework.net.Request;
+import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.utils.TimeUtils;
 import com.mmorpg.logic.base.domain.Player;
