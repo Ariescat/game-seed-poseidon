@@ -28,7 +28,11 @@ public class AnnoScanner implements InitializingBean, ApplicationContextAware {
 		Map<String, AnnoScannerListener> beansOfType = ctx.getBeansOfType(AnnoScannerListener.class);
 		if (beansOfType != null) {
 			for (AnnoScannerListener listener : beansOfType.values()) {
-				listener.processResource(factory, resources);
+				try {
+					listener.processResource(factory, resources);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

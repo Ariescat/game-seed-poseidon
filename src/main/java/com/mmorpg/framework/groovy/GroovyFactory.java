@@ -12,7 +12,6 @@ import org.springframework.context.ApplicationContextAware;
 import java.io.File;
 import java.net.URL;
 import java.util.Collection;
-import java.util.Objects;
 
 public class GroovyFactory implements ApplicationContextAware {
 
@@ -39,8 +38,9 @@ public class GroovyFactory implements ApplicationContextAware {
 		final String language = "org.springframework.scripting.support.ScriptFactoryPostProcessor.language";
 
 		URL url = Thread.currentThread().getContextClassLoader().getResource(directory);
-		File scriptDir = new File(Objects.requireNonNull(url).getFile());
+		if (url == null) return;
 
+		File scriptDir = new File(url.getFile());
 		if (!scriptDir.exists()) return;
 
 		Collection<File> files = FileUtils.listFiles(scriptDir, new String[]{"java", "groovy"}, true);
