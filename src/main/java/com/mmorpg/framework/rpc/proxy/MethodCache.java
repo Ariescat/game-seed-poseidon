@@ -18,41 +18,17 @@ public class MethodCache {
 
 	private final static Logger log = LoggerFactory.getLogger(MethodCache.class);
 
+	/**
+	 * 方法签名（无 uid）为索引的缓存
+	 */
 	private static ConcurrentHashMapV8<MethodInfo, Method> methodInfo2method = new ConcurrentHashMapV8<>();
-
+	/**
+	 * uid为索引的缓存
+	 */
 	private static ConcurrentHashMapV8<Integer, Method> uid2method = new ConcurrentHashMapV8<>();
 	static Map<Method, Integer> method2uid = new ConcurrentHashMapV8<>();
 
-	private static final class MethodInfo {
-		private final String className;
-		private final String methodName;
-		private final String methodDesc;
-
-		MethodInfo(String className, String methodName, String methodDesc) {
-			this.className = className;
-			this.methodName = methodName;
-			this.methodDesc = methodDesc;
-		}
-
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) return true;
-			if (o == null || getClass() != o.getClass()) return false;
-
-			MethodInfo that = (MethodInfo) o;
-			return Objects.equals(className, that.className)
-				&& Objects.equals(methodName, that.methodName)
-				&& Objects.equals(methodDesc, that.methodDesc);
-		}
-
-		@Override
-		public int hashCode() {
-			return Objects.hash(className, methodName, methodDesc);
-		}
-	}
-
-
-	static Method getOrFindMethod(int methodUid, final String clazzName, final String methodName, final String methodDesc) {
+	public static Method getOrFindMethod(int methodUid, final String clazzName, final String methodName, final String methodDesc) {
 		if (methodUid != 0) {
 			return uid2method.get(methodUid);
 		} else {
@@ -118,7 +94,7 @@ public class MethodCache {
 		return null;
 	}
 
-	static void cacheMethods(final Class<?> interfaceClass) {
+	public static void cacheMethods(final Class<?> interfaceClass) {
 		if (!interfaceClass.isInterface()) {
 			return;
 		}
@@ -142,6 +118,34 @@ public class MethodCache {
 					method2uid.put(method, id);
 				}
 			}
+		}
+	}
+
+	private static final class MethodInfo {
+		private final String className;
+		private final String methodName;
+		private final String methodDesc;
+
+		MethodInfo(String className, String methodName, String methodDesc) {
+			this.className = className;
+			this.methodName = methodName;
+			this.methodDesc = methodDesc;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) return true;
+			if (o == null || getClass() != o.getClass()) return false;
+
+			MethodInfo that = (MethodInfo) o;
+			return Objects.equals(className, that.className)
+				&& Objects.equals(methodName, that.methodName)
+				&& Objects.equals(methodDesc, that.methodDesc);
+		}
+
+		@Override
+		public int hashCode() {
+			return Objects.hash(className, methodName, methodDesc);
 		}
 	}
 }

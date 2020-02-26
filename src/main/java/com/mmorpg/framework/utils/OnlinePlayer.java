@@ -27,6 +27,10 @@ public class OnlinePlayer {
 
 	}
 
+	public Player getPlayerById(long playerId) {
+		return null;
+	}
+
 	public int getOnlinePlayerCount() {
 		return 0;
 	}

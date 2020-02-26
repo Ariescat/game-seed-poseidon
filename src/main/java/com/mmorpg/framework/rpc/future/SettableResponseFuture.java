@@ -1,4 +1,4 @@
-package com.mmorpg.framework.rpc;
+package com.mmorpg.framework.rpc.future;
 
 import com.google.common.util.concurrent.AbstractFuture;
 

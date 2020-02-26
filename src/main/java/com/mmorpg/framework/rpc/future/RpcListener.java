@@ -1,4 +1,4 @@
-package com.mmorpg.framework.rpc;
+package com.mmorpg.framework.rpc.future;
 
 /**
  * @author Ariescat
