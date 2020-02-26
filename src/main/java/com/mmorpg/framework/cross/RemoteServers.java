@@ -98,15 +98,20 @@ public enum RemoteServers {
 
 	// =========================== sendCrossMsg ===========================
 	public static void sendCrossMsg(CrossClient crossClient, ICrossBaseMsg<?> msg) {
+		DispatchPacket packet = createCrossMsgPacket(msg);
 //		TODO
-//		crossClient.sendPacket(createCrossMsgPacket(msg));
+//		crossClient.sendPacket(packet);
 	}
 
 	public static void sendCrossMsg(Channel channel, ICrossBaseMsg<?> msg) {
 		channel.writeAndFlush(createCrossMsgPacket(msg));
 	}
 
-	private static Object createCrossMsgPacket(ICrossBaseMsg<?> msg) {
+	public static void sendCrossMsgToCenter(ICrossBaseMsg<?> msg) {
+		sendCrossMsg(getCenterServerClient(), msg);
+	}
+
+	private static DispatchPacket createCrossMsgPacket(ICrossBaseMsg<?> msg) {
 		CrossMsgPacket packet = CrossMsgPacket.of(msg);
 		long playerId = 0;
 		if (msg instanceof ICrossPlayerMsg) {

@@ -6,5 +6,5 @@ package com.mmorpg.framework.rpc.proxy;
  */
 public interface RpcMethodId {
 
-	int xxx = 1;
+	int REQ_NOTICE_TEST = 1;
 }
