@@ -7,7 +7,7 @@
     </appenders>
 
     <loggers>
-        <!--<logger name="org.springframework" level="INFO"/>-->
+        <logger name="org.springframework" level="INFO"/>
         <logger name="org.springframework.scripting.support.ScriptFactoryPostProcessor" level="DEBUG"/>
         <root level="DEBUG">
             <appender-ref ref="Console"/>
