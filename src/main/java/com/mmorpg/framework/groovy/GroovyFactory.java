@@ -38,7 +38,10 @@ public class GroovyFactory implements ApplicationContextAware {
 		final String language = "org.springframework.scripting.support.ScriptFactoryPostProcessor.language";
 
 		URL url = Thread.currentThread().getContextClassLoader().getResource(directory);
-		if (url == null) return;
+		if (url == null) {
+			log.warn("groovy directory is null");
+			return;
+		}
 
 		File scriptDir = new File(url.getFile());
 		if (!scriptDir.exists()) return;
