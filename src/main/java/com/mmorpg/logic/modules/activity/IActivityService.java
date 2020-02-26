@@ -5,4 +5,6 @@ package com.mmorpg.logic.modules.activity;
  * @version 2020/2/26 14:54
  */
 public interface IActivityService {
+
+	void reqInfo();
 }

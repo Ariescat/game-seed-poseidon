@@ -26,5 +26,8 @@ public class Start {
 
 		stopWatch.stop();
 		System.err.println("used time:" + stopWatch.getTotalTimeMillis());
+
+//		IActivityService activityService = context.getBean(IActivityService.class);
+//		activityService.reqInfo();
 	}
 }

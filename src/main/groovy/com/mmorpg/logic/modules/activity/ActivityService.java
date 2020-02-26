@@ -8,4 +8,9 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class ActivityService implements IActivityService {
+
+	@Override
+	public void reqInfo() {
+		System.err.println("reqInfo");
+	}
 }
