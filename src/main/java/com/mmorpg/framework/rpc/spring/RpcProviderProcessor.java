@@ -29,6 +29,6 @@ public class RpcProviderProcessor implements BeanPostProcessor {
 			MethodCache.cacheMethods(providerClazz);
 			RpcProviders.addProvider(providerClazz.getName(), bean);
 		}
-		return null;
+		return bean;
 	}
 }

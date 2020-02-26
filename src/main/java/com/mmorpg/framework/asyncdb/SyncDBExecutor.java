@@ -99,10 +99,8 @@ public class SyncDBExecutor {
 						long thisTime = countSync.get();
 						ThreadPoolExecutor executorPool = (ThreadPoolExecutor) executorService;
 						if (log.isInfoEnabled()) {
-							log.info("sumit queue : {} # execute task number : {}"
-									+ " # sync total number : {} # exe number/min: {}",
-								syncQueue.size(), executorPool.getQueue().size(),
-								thisTime, thisTime - preTime);
+							log.info("submit queue:{}, execute task number:{}, sync total number:{}, exe number/min:{}",
+								syncQueue.size(), executorPool.getQueue().size(), thisTime, thisTime - preTime);
 						}
 						this.preTime = thisTime;
 					}
