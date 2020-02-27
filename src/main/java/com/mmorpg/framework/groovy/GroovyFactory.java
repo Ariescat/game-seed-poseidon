@@ -39,12 +39,15 @@ public class GroovyFactory implements ApplicationContextAware {
 
 		URL url = Thread.currentThread().getContextClassLoader().getResource(directory);
 		if (url == null) {
-			log.warn("groovy directory is null");
+			log.warn("groovy url is null");
 			return;
 		}
 
 		File scriptDir = new File(url.getFile());
-		if (!scriptDir.exists()) return;
+		if (!scriptDir.exists()) {
+			log.warn("groovy script dir is no exists");
+			return;
+		}
 
 		Collection<File> files = FileUtils.listFiles(scriptDir, new String[]{"java", "groovy"}, true);
 		for (File file : files) {

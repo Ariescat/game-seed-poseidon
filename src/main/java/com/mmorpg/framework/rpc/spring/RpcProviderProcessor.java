@@ -2,6 +2,8 @@ package com.mmorpg.framework.rpc.spring;
 
 import com.mmorpg.framework.rpc.anno.RpcProvider;
 import com.mmorpg.framework.rpc.proxy.MethodCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class RpcProviderProcessor implements BeanPostProcessor {
 
+	private final static Logger log = LoggerFactory.getLogger(RpcProviderProcessor.class);
+
 	@Override
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
@@ -24,6 +28,7 @@ public class RpcProviderProcessor implements BeanPostProcessor {
 		Class<?> targetClass = AopUtils.getTargetClass(bean);
 		RpcProvider annotation = targetClass.getAnnotation(RpcProvider.class);
 		if (annotation != null) {
+			log.debug("find RpcProvider:{}", targetClass);
 			Class<?> providerClazz = annotation.clazz();
 			// 对接口的方法进行缓存
 			MethodCache.cacheMethods(providerClazz);

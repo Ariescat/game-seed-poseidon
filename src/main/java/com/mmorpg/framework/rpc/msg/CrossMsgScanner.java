@@ -3,6 +3,8 @@ package com.mmorpg.framework.rpc.msg;
 import com.mmorpg.framework.annoscan.AnnoScannerListener;
 import com.mmorpg.framework.rpc.msg.anno.CrossMsg;
 import org.apache.commons.collections.MapUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
@@ -18,6 +20,8 @@ import java.util.Map;
  */
 @Component
 public class CrossMsgScanner implements AnnoScannerListener {
+
+	private final static Logger log = LoggerFactory.getLogger(CrossMsgScanner.class);
 
 	@Override
 	public void processResource(CachingMetadataReaderFactory factory, Resource[] resources) throws Exception {
@@ -41,6 +45,7 @@ public class CrossMsgScanner implements AnnoScannerListener {
 				}
 			}
 		}
+		log.debug("scan cross msg size:" + msgs.size());
 		CrossMsgFactory.init(msgs);
 	}
 }
