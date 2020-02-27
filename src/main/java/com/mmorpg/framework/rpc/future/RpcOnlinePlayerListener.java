@@ -1,6 +1,7 @@
 package com.mmorpg.framework.rpc.future;
 
 import com.mmorpg.framework.utils.OnlinePlayer;
+import com.mmorpg.logic.base.scene.creature.player.IPlayerMessage;
 import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
@@ -18,11 +19,15 @@ public abstract class RpcOnlinePlayerListener implements RpcListener {
 	}
 
 	@Override
-	public void onRet(Object ret) {
+	public void onRet(final Object ret) {
 		Player player = OnlinePlayer.getInstance().getPlayerById(playerId);
 		if (player != null) {
-//			TODO
-//			player.addPlayerMessage(  ->  onRet(cPlayer, ret)   )
+			player.addPlayerMessage(new IPlayerMessage() {
+				@Override
+				public void execute(Player cPlayer) {
+					onRet(cPlayer, ret);
+				}
+			});
 		} else {
 			onRet(null, ret);
 		}

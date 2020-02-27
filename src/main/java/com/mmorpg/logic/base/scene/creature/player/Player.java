@@ -37,7 +37,7 @@ public class Player extends GObject {
 	/**
 	 * 玩家消息队列
 	 */
-	private ConcurrentLinkedQueue<IPlayerMessage> playerMessages = new ConcurrentLinkedQueue<>();
+	private ConcurrentLinkedQueue<IPlayerMessage> messageQueue = new ConcurrentLinkedQueue<>();
 	private AtomicBoolean playerMessageEnable = new AtomicBoolean(false);
 
 	/**
@@ -45,17 +45,29 @@ public class Player extends GObject {
 	 */
 	private ConcurrentLinkedQueue<AbstractPacket> packetQueue = new ConcurrentLinkedQueue<>();
 
+	public boolean addPlayerMessage(IPlayerMessage message) {
+		if (playerMessageEnable.get()) {
+			return this.messageQueue.add(message);
+		}
+		log.error("addPlayerMessage error. {} {}", id, playerMessageEnable);
+		return false;
+	}
+
 	public void addPacket(AbstractPacket packet) {
 		if (gameSession != null) {
 			int size = packetQueue.size();
 			if (Context.it().configService.isPacketSizeToClose(size)) {
-				log.warn("packetQueue too long!! {} {} {}", getAccount(), getIP(), getName());
+				log.warn("packetQueue too long!! {} {} {} {}", id, getAccount(), getIP(), getName());
 				return;
 			}
 			packetQueue.add(packet);
 		} else {
-			log.error("[{}], have not auth yet.", id);
+			log.error("have not auth yet. {} {} {} {}", id, getAccount(), getIP(), getName());
 		}
+	}
+
+	public void login() {
+
 	}
 
 	public void logout() {
