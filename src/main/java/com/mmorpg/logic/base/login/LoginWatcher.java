@@ -12,7 +12,7 @@ import com.mmorpg.framework.utils.PacketUtils;
 import com.mmorpg.framework.utils.TimeUtils;
 import com.mmorpg.framework.utils.Timer;
 import com.mmorpg.logic.base.Context;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

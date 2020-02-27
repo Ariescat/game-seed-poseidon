@@ -87,11 +87,12 @@ public class AsyncHttpClientUtils {
 
 	public static void stop() {
 		try {
-			HTTP_CLIENT.close();
+			if (HTTP_CLIENT.isRunning()) {
+				HTTP_CLIENT.close();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	private static class StringResponseConsumer extends AbstractAsyncResponseConsumer<String> {

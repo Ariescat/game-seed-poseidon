@@ -15,7 +15,7 @@ import com.mmorpg.framework.rpc.msg.ICrossBaseMsg;
 import com.mmorpg.framework.rpc.msg.ICrossMsg;
 import com.mmorpg.framework.rpc.msg.ICrossPlayerMsg;
 import com.mmorpg.framework.rpc.msg.sender.ChannelCrossMsgSender;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import io.netty.channel.Channel;
 import io.protostuff.LinkedBuffer;
 import io.protostuff.ProtostuffIOUtil;

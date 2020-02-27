@@ -1,7 +1,7 @@
 package com.mmorpg.framework.rpc.future;
 
 import com.mmorpg.framework.utils.OnlinePlayer;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
  * 指定在线玩家队列执行

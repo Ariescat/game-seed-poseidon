@@ -9,6 +9,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConfigService {
 
+	/**
+	 * 消息队列大于此值时关闭链接
+	 */
+	private static final int closeQueueSize = 50;
+
+	/**
+	 * 允许最大在线数量
+	 */
 	public int getMaxOnlineCount() {
 		return 0;
 	}
@@ -25,7 +33,14 @@ public class ConfigService {
 		return 0;
 	}
 
+	/**
+	 * 当前服务器是否开服
+	 */
 	public String getOriServerFlag() {
 		return null;
+	}
+
+	public boolean isPacketSizeToClose(int size) {
+		return size > closeQueueSize;
 	}
 }

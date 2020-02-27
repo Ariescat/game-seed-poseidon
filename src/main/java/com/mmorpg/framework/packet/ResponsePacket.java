@@ -2,7 +2,7 @@ package com.mmorpg.framework.packet;
 
 import com.mmorpg.framework.net.Request;
 import com.mmorpg.framework.net.session.GameSession;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
  * @author Ariescat

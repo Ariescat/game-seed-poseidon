@@ -4,7 +4,7 @@ import com.mmorpg.framework.net.Request;
 import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.utils.TimeUtils;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

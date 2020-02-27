@@ -9,7 +9,7 @@ import com.mmorpg.framework.thread.god.Sprite;
 import com.mmorpg.framework.thread.god.WorldScene;
 import com.mmorpg.framework.thread.god.policy.IRequestOverflowPolicy;
 import com.mmorpg.framework.thread.god.policy.impl.DirectRunPolicy;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
  * 门卫

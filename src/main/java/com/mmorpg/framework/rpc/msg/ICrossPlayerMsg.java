@@ -1,7 +1,7 @@
 package com.mmorpg.framework.rpc.msg;
 
 import com.mmorpg.framework.rpc.msg.repair.TempRepairMsg;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
  * @author Ariescat

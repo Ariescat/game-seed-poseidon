@@ -12,7 +12,7 @@ import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.utils.*;
 import com.mmorpg.framework.utils.random.RandomUtils;
 import com.mmorpg.logic.base.Context;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import com.mmorpg.logic.base.service.ConfigService;
 import com.mmorpg.logic.base.cheat.ISerialNumberHandler;
 import com.mmorpg.logic.base.cheat.PacketCheatLogEvent;

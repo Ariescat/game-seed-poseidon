@@ -4,7 +4,7 @@ import com.mmorpg.framework.rpc.msg.ICrossBaseMsg;
 import com.mmorpg.framework.rpc.msg.ICrossPlayerMsg;
 import com.mmorpg.framework.rpc.msg.packet.CrossMsgPacket;
 import com.mmorpg.logic.base.Context;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import io.netty.channel.Channel;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8;
 import org.slf4j.Logger;

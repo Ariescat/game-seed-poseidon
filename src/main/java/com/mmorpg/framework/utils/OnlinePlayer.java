@@ -2,7 +2,7 @@ package com.mmorpg.framework.utils;
 
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
-import com.mmorpg.logic.base.domain.Player;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 
 /**
  * @author Ariescat
