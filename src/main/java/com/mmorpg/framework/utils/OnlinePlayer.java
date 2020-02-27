@@ -2,7 +2,9 @@ package com.mmorpg.framework.utils;
 
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
+import com.mmorpg.logic.base.Context;
 import com.mmorpg.logic.base.scene.creature.player.Player;
+import org.apache.commons.lang3.concurrent.ConcurrentUtils;
 
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -54,7 +56,24 @@ public class OnlinePlayer {
 		return 0;
 	}
 
+	public AtomicInteger getSameIPCount(String ip) {
+		AtomicInteger count = ip_2_count.get(ip);
+		if (count == null) {
+			count = new AtomicInteger(0);
+			count = ConcurrentUtils.putIfAbsent(ip_2_count, ip, count);
+		}
+		return count;
+	}
+
 	public boolean isSameIPMax(String ip) {
+		final int maxSameIp = Context.it().configService.getMaxSameIpCount();
+		if (maxSameIp > 0) {
+			if (Context.it().configService.isInSameIpWhiteList(ip)) {
+				return false;
+			}
+			AtomicInteger count = getSameIPCount(ip);
+			return count.get() > maxSameIp;
+		}
 		return false;
 	}
 
