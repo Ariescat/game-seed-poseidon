@@ -10,5 +10,14 @@
 	</bean>
 	<bean class="org.springframework.scripting.support.ScriptFactoryPostProcessor"/>
 
+	<bean class="net.paoding.rose.jade.context.spring.JadeBeanFactoryPostProcessor"/>
+
+	<!-- spring版本3.2.4.RELEASE xml不支持exclude和include同时配置，但底层实现代码是没有限制的，而4.3.14.RELEASE这个版本就可以 -->
+	<!--<context:component-scan base-package="com.mmorpg">
+		<context:exclude-filter type="annotation" expression="net.paoding.rose.jade.annotation.DAO"/>
+		&lt;!&ndash; 把Listener注解的类 也注册进Spring &ndash;&gt;
+		<context:include-filter type="annotation" expression="com.mmorpg.framework.listener.annotation.Listener"/>
+	</context:component-scan>-->
+
 	<context:component-scan base-package="com.mmorpg"/>
 </beans>

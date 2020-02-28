@@ -146,7 +146,7 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<!--jade (java access data layer?)-->
+		<!--jade (java access data layer?) https://github.com/paoding-code/paoding-rose-->
 		<dependency>
 			<groupId>net.paoding</groupId>
 			<artifactId>paoding-rose-jade</artifactId>
