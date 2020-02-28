@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="INFO" monitorInterval="30">
-    <appenders>
-        <console name="Console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d{HH:mm:ss:SSS} [%-5level] - %l - %m%n"/>
-        </console>
-    </appenders>
+	<appenders>
+		<console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{HH:mm:ss:SSS} [%-5level] - %l - %m%n"/>
+		</console>
+	</appenders>
 
-    <loggers>
-        <logger name="org.springframework" level="INFO"/>
-        <logger name="org.springframework.scripting.support.ScriptFactoryPostProcessor" level="DEBUG"/>
-        <root level="DEBUG">
-            <appender-ref ref="Console"/>
-        </root>
-    </loggers>
+	<loggers>
+		<logger name="org.springframework" level="INFO"/>
+		<logger name="org.springframework.scripting.support.ScriptFactoryPostProcessor" level="DEBUG"/>
+
+		<logger name="net.paoding" level="INFO"/>
+
+		<root level="DEBUG">
+			<appender-ref ref="Console"/>
+		</root>
+	</loggers>
 </configuration>
