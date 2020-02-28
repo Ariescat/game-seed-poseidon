@@ -52,7 +52,7 @@ public class LoginWatcher {
 			PacketUtils.sendAndClose(session.getChannel(), msgPacket);
 			return;
 		}
-		if (OnlinePlayer.getInstance().isSameIPMax(session.getIP())) {
+		if (OnlinePlayer.getInstance().isSameIPMax(session.getIp())) {
 			RespMessagePacket msgPacket = Message.buildMessagePacket(MessageType.WARN, MessageId.ANOUNCEMENT, "相同IP登录超过上限！");
 			PacketUtils.sendAndClose(session.getChannel(), msgPacket);
 			return;

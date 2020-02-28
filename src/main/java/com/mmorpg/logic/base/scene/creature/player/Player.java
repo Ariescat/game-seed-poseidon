@@ -5,6 +5,7 @@ import com.mmorpg.framework.net.session.CloseCause;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
 import com.mmorpg.framework.packet.AbstractPacket;
+import com.mmorpg.framework.utils.ExceptionUtils;
 import com.mmorpg.logic.base.Context;
 import com.mmorpg.logic.base.scene.creature.GObject;
 import com.mmorpg.logic.base.scene.creature.player.entity.PlayerEntity;
@@ -45,6 +46,22 @@ public class Player extends GObject {
 	 */
 	private ConcurrentLinkedQueue<AbstractPacket> packetQueue = new ConcurrentLinkedQueue<>();
 
+	public void login() {
+
+	}
+
+	public void logout() {
+
+	}
+
+	public void setSession(GameSession gameSession, GameSessionStatusUpdateCause cause) {
+		this.gameSession = gameSession;
+	}
+
+	public void closeSession(CloseCause closeCause) {
+
+	}
+
 	public boolean addPlayerMessage(IPlayerMessage message) {
 		if (playerMessageEnable.get()) {
 			return this.messageQueue.add(message);
@@ -66,12 +83,14 @@ public class Player extends GObject {
 		}
 	}
 
-	public void login() {
-
-	}
-
-	public void logout() {
-
+	public void sendPacket(AbstractPacket packet) {
+		try {
+			if (gameSession != null) {
+				gameSession.sendPacket(packet);
+			}
+		} catch (Exception e) {
+			ExceptionUtils.log(e);
+		}
 	}
 
 	public String getAccount() {
@@ -83,14 +102,10 @@ public class Player extends GObject {
 	}
 
 	public String getIP() {
-		return gameSession.getIP();
+		return gameSession.getIp();
 	}
 
-	public void setSession(GameSession gameSession, GameSessionStatusUpdateCause cause) {
-		this.gameSession = gameSession;
-	}
-
-	public void closeSession(CloseCause closeCause) {
-
+	public boolean isCrossed() {
+		return crossInfo.isCrossed();
 	}
 }

@@ -21,8 +21,8 @@ import java.util.List;
 public class BaseFrameDecode extends ByteToMessageDecoder {
 
 	private static final int MAX_BODY_SIZE = 1024 * 1024;
-	private static final byte[] FRAME_MAGIC = {5, 5, 2, 7};
-	private static final byte[] FRAME_MAGIC_CROSS = {'c', 'r', 'o', 's'};
+	public static final byte[] FRAME_MAGIC = {5, 5, 2, 7};
+	public static final byte[] FRAME_MAGIC_CROSS = {'c', 'r', 'o', 's'};
 
 	private static final int FRAME_STATUS_NEED_HEADER = 0;
 	private static final int FRAME_STATUS_NEED_BODY = 1;

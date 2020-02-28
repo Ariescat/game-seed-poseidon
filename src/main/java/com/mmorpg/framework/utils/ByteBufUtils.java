@@ -19,16 +19,26 @@ public class ByteBufUtils {
 
 	/**
 	 * 写长字符申，32767 个字节
-	 *
-	 * @param buffer
 	 */
-	public static void writeString(ByteBuf buffer, String str) {
+	public static void writeString(ByteBuf byteBuf, String str) {
 		if (str != null) {
 			byte[] content = str.getBytes(UTF_8);
-			buffer.writeShort(content.length);
-			buffer.writeBytes(content);
+			byteBuf.writeShort(content.length);
+			byteBuf.writeBytes(content);
 		} else {
-			buffer.writeShort(0);
+			byteBuf.writeShort(0);
 		}
+	}
+
+	/**
+	 * 动态方式写正整数
+	 */
+	public static void writePositiveInt(ByteBuf byteBuf, int value) {
+		// TODO
+	}
+
+	public static int readPositiveInt(ByteBuf byteBuf) {
+		// TODO
+		return 0;
 	}
 }

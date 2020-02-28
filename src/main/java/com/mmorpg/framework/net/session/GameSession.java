@@ -5,20 +5,22 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.mmorpg.framework.cross.client.CrossInfo;
 import com.mmorpg.framework.net.NullChannel;
+import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.packet.AbstractPacket;
 import com.mmorpg.framework.packet.PacketDecodeException;
 import com.mmorpg.framework.packet.PacketFactory;
-import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.utils.*;
 import com.mmorpg.framework.utils.random.RandomUtils;
 import com.mmorpg.logic.base.Context;
-import com.mmorpg.logic.base.scene.creature.player.Player;
-import com.mmorpg.logic.base.service.ConfigService;
 import com.mmorpg.logic.base.cheat.ISerialNumberHandler;
 import com.mmorpg.logic.base.cheat.PacketCheatLogEvent;
+import com.mmorpg.logic.base.scene.creature.player.Player;
+import com.mmorpg.logic.base.service.ConfigService;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,29 +48,56 @@ public class GameSession {
 	private static final AtomicReferenceFieldUpdater<GameSession, GameSessionStatus> StateUpdater
 		= AtomicReferenceFieldUpdater.newUpdater(GameSession.class, GameSessionStatus.class, "status");
 
+	@Getter
 	private Channel channel;
+	@Getter
+	@Setter
 	private String account = "";    //帐号
+	@Getter
 	private String account_server;
+	@Getter
 	private int salt;
+	@Getter
 	private int key;
 	private int nextKey = -1;
 	private long lastKeyResetTime = TimeUtils.getCurrentMillisTime();
 	private int nextDelay;
 	private int nextExpire;
+	@Getter
 	private long uid;    //用户ID
+	@Getter
 	private Player player;
+	@Getter
+	@Setter
 	private volatile GameSessionStatus status = GameSessionStatus.INIT;
+	@Getter
 	private volatile boolean authed;
+	@Getter
 	private String ip;
-	private String server;
+	@Getter
 	private long ipHashCode;
+	/**
+	 * 平台
+	 */
+	@Getter
+	@Setter
+	private String platform;
+	/**
+	 * 区服 S50001
+	 */
+	@Getter
+	@Setter
+	private String server;
 	/**
 	 * 是否成年
 	 */
+	@Getter
+	@Setter
 	private boolean al;
 	/**
 	 * 登录类型
 	 */
+	@Getter
 	private String client;
 	/**
 	 * 参数
@@ -78,27 +107,29 @@ public class GameSession {
 	/**
 	 * 是否微端登录
 	 */
+	@Getter
 	private boolean isClient;
 	/**
 	 * 是否37盒子登录
 	 */
+	@Getter
 	private boolean is37Box;
 	/**
 	 * 是否搜狗游戏平台登陆
 	 */
+	@Getter
 	private boolean isSogouMini;
 	/**
 	 * 是否搜狗皮肤登陆
 	 */
+	@Getter
 	private boolean isSogouSkin;
 	/**
 	 * 是否2345王牌浏览器登陆
 	 */
+	@Getter
 	private boolean is2345Login = false;
-	/**
-	 * 平台
-	 */
-	private String platform;
+
 	/**
 	 * 序列号
 	 */
@@ -117,10 +148,12 @@ public class GameSession {
 	 */
 	private AtomicBoolean exiting = new AtomicBoolean();
 
+	@Getter
 	private boolean registered;
+
 	/**
 	 * 平台vip等级
-	 **/
+	 */
 	private int platVipLv;
 
 	/**
@@ -195,29 +228,9 @@ public class GameSession {
 		return session;
 	}
 
-	public long getIpHashCode() {
-		return ipHashCode;
-	}
-
-	public Channel getChannel() {
-		return channel;
-	}
-
-	public String getAccount() {
-		return account;
-	}
-
-	public void setAccount(String account) {
-		this.account = account;
-	}
-
 	public void updateAccount(String account) {
 		this.account = account;
 		this.genASKey();
-	}
-
-	public long getUid() {
-		return uid;
 	}
 
 	public void sendPacket(AbstractPacket packet) {
@@ -266,22 +279,10 @@ public class GameSession {
 		});
 	}
 
-	public Player getPlayer() {
-		return player;
-	}
-
 	public void setPlayer(Player player, GameSessionStatusUpdateCause cause) {
 		this.player = player;
 		this.uid = player.getId();
 		player.setSession(this, cause);
-	}
-
-	public GameSessionStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(GameSessionStatus status) {
-		this.status = status;
 	}
 
 	public boolean compareAndSetStatus(GameSessionStatus expect, GameSessionStatus update) {
@@ -309,10 +310,6 @@ public class GameSession {
 		}
 	}
 
-	public String getIP() {
-		return ip;
-	}
-
 	/**
 	 * 序列号是否合法 等于或者大于服务端 当前值为合法，如果大于服务器当前值，则将服务器端当前值设置为客户端的
 	 */
@@ -333,36 +330,13 @@ public class GameSession {
 		}
 	}
 
-	public String getServer() {
-		return server;
-	}
-
-	public void setServer(String server) {
-		this.server = server;
-	}
-
 	public boolean needCheck() {
 		return true;
-	}
-
-	public boolean isAuthed() {
-		return authed;
 	}
 
 	public void authed() {
 		this.authed = true;
 		this.genASKey();
-	}
-
-	public void setAl(boolean al) {
-		this.al = al;
-	}
-
-	/**
-	 * 是否成年
-	 */
-	public boolean isA1() {
-		return this.al;
 	}
 
 	/**
@@ -425,10 +399,6 @@ public class GameSession {
 		return this.exiting.get();
 	}
 
-	public boolean isRegistered() {
-		return registered;
-	}
-
 	public void registered() {
 		this.registered = true;
 	}
@@ -469,10 +439,6 @@ public class GameSession {
 		}
 	}
 
-	public int getKey() {
-		return key;
-	}
-
 	public int randomStartSNO() {
 		int sno = RandomUtils.nextInt(Short.MAX_VALUE);
 		this.serialNO.set(sno);
@@ -481,55 +447,6 @@ public class GameSession {
 
 	public int getSerialN0() {
 		return this.serialNO.get();
-	}
-
-	public int getSalt() {
-		return salt;
-	}
-
-	public boolean isClient() {
-		return isClient;
-	}
-
-	/**
-	 * 是否37盒子登陆
-	 */
-	public boolean is37Box() {
-		return is37Box;
-	}
-
-	/**
-	 * 是否搜狗游戏大厅登陆
-	 */
-	public boolean isSogouMini() {
-		return isSogouMini;
-	}
-
-	/**
-	 * 是否搜狗皮肤登陆
-	 */
-	public boolean isSogouSkin() {
-		return isSogouSkin;
-	}
-
-	public boolean is2345Login() {
-		return is2345Login;
-	}
-
-	public void set2345Login(boolean is2345Login) {
-		this.is2345Login = is2345Login;
-	}
-
-	public String getPlatforn() {
-		return platform;
-	}
-
-	public void setPlatform(String platform) {
-		this.platform = platform;
-	}
-
-	public String getClient() {
-		return client;
 	}
 
 	public void setClient(String client) {
@@ -542,12 +459,9 @@ public class GameSession {
 		}
 	}
 
-	public String getAServer() {
-		return account_server;
-	}
-
 	private void genASKey() {
-//        this.account_server =
+		// TODO
+		// this.account_server =
 	}
 
 	public boolean isCross() {
@@ -569,7 +483,6 @@ public class GameSession {
 	public String toString() {
 		return super.toString() + " " + status + " " + account;
 	}
-
 
 }
 
