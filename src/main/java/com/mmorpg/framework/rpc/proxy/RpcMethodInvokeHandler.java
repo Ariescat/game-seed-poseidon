@@ -1,7 +1,7 @@
 package com.mmorpg.framework.rpc.proxy;
 
 import com.google.common.reflect.AbstractInvocationHandler;
-import com.mmorpg.framework.cross.CrossClient;
+import com.mmorpg.framework.cross.client.CrossClient;
 import com.mmorpg.framework.cross.RemoteServers;
 import com.mmorpg.framework.rpc.Rpc;
 import com.mmorpg.framework.rpc.RpcMethodInvokeRequest;

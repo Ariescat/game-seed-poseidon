@@ -1,11 +1,14 @@
-package com.mmorpg.framework.cross;
+package com.mmorpg.framework.cross.client;
 
+import com.mmorpg.framework.cross.ServerInfo;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
+ * 跨服 client端 CrossClient管理类
+ *
  * @author Ariescat
  * @version 2020/2/25 17:36
  */

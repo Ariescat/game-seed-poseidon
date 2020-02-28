@@ -1,5 +1,6 @@
 package com.mmorpg.framework.packet;
 
+import com.mmorpg.framework.net.ByteBufResponse;
 import com.mmorpg.framework.net.Request;
 import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.net.session.GameSession;
@@ -62,8 +63,9 @@ public abstract class AbstractPacket {
 	public abstract void doResponse(Response response);
 
 	public Response write() {
-		// TODO
-		return null;
+		Response response = new ByteBufResponse(getCommand());
+		doResponse(response);
+		return response;
 	}
 
 	@Override

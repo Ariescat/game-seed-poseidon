@@ -20,14 +20,17 @@ public class Start {
 
 	private final static Logger log = LoggerFactory.getLogger(Start.class);
 
-	public static void main(String[] args) {
+	private static NetServer netServer;
+
+	public static void main(String[] args) throws Exception {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		ListenerManager.getInstance().init(context);
 		GateKeepers.initialize();
-		NetServer.startServer(4010);
+		netServer = new NetServer();
+		netServer.startServer(4010);
 
 		stopWatch.stop();
 		log.warn("start finish used time:{}", stopWatch.getTotalTimeMillis());
@@ -43,5 +46,6 @@ public class Start {
 	public static void stop() {
 		log.warn("stop game server");
 		AsyncHttpClientUtils.stop();
+		netServer.stop();
 	}
 }

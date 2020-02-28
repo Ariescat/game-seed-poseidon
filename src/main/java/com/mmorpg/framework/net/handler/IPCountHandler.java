@@ -21,7 +21,6 @@ public class IPCountHandler extends ChannelInboundHandlerAdapter {
 		super.channelActive(ctx);
 	}
 
-
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
 		String ip = ChannelUtils.getIP(ctx.channel());

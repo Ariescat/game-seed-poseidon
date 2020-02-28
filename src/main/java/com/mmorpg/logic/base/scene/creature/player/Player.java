@@ -1,6 +1,6 @@
 package com.mmorpg.logic.base.scene.creature.player;
 
-import com.mmorpg.framework.cross.CrossInfo;
+import com.mmorpg.framework.cross.client.CrossInfo;
 import com.mmorpg.framework.net.session.CloseCause;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;

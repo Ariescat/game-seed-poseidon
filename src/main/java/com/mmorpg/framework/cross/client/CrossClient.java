@@ -1,4 +1,4 @@
-package com.mmorpg.framework.cross;
+package com.mmorpg.framework.cross.client;
 
 /**
  * @author Ariescat

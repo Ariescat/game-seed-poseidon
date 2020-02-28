@@ -1,4 +1,6 @@
-package com.mmorpg.framework.cross;
+package com.mmorpg.framework.cross.client;
+
+import com.mmorpg.framework.cross.CrossType;
 
 /**
  * @author Ariescat

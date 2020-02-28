@@ -1,8 +1,9 @@
 package com.mmorpg.logic.base;
 
 import com.mmorpg.framework.asyncdb.AsyncDBService;
-import com.mmorpg.framework.cross.CrossClientManager;
 import com.mmorpg.framework.cross.center.CenterServerManager;
+import com.mmorpg.framework.cross.client.CrossClientManager;
+import com.mmorpg.framework.cross.server.CrossChannelManager;
 import com.mmorpg.framework.event.EventBus;
 import com.mmorpg.logic.base.service.ConfigService;
 import org.springframework.beans.BeansException;
@@ -34,6 +35,8 @@ public class Context implements ApplicationContextAware {
 	 */
 	@Autowired
 	public CrossClientManager crossClientManager;
+	@Autowired
+	public CrossChannelManager crossChannelManager;
 	@Autowired
 	public CenterServerManager centerServerManager;
 	/**

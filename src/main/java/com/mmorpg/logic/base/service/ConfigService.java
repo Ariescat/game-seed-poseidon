@@ -61,4 +61,8 @@ public class ConfigService {
 	public boolean isInSameIpWhiteList(String ip) {
 		return sameIpWhiteList.contains(ip);
 	}
+
+	public String getCrossAuthKey() {
+		return "";
+	}
 }

@@ -8,12 +8,14 @@ package com.mmorpg.framework.packet;
  */
 public class PacketId {
 
-	/*
-	 * =============== message ===============
+
+	/**
+	 * =============== utils ===============
 	 */
 	public static final short RESP_MESSAGE = 13301;
+	public static final short RESP_LOGIN_CONFLICT = 13303;
 
-	/*
+	/**
 	 * =============== cross ===============
 	 */
 	public static final short CROSS_PROTO_STUFF_PACKET = 30001;

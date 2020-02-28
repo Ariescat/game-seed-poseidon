@@ -1,5 +1,7 @@
 package com.mmorpg.framework.cross;
 
+import com.mmorpg.framework.cross.client.CrossClient;
+import com.mmorpg.framework.cross.client.CrossInfo;
 import com.mmorpg.framework.rpc.msg.ICrossBaseMsg;
 import com.mmorpg.framework.rpc.msg.ICrossPlayerMsg;
 import com.mmorpg.framework.rpc.msg.packet.CrossMsgPacket;
@@ -105,6 +107,13 @@ public enum RemoteServers {
 
 	public static void sendCrossMsg(Channel channel, ICrossBaseMsg<?> msg) {
 		channel.writeAndFlush(createCrossMsgPacket(msg));
+	}
+
+	public static void sendCrossMsg(String platform, int serverId, ICrossBaseMsg<?> msg) {
+		Channel crossChannel = Context.it().crossChannelManager.getCrossChannel(platform, serverId);
+		if (crossChannel != null && crossChannel.isActive()) {
+			sendCrossMsg(crossChannel, msg);
+		}
 	}
 
 	public static void sendCrossMsgToCenter(ICrossBaseMsg<?> msg) {

@@ -1,9 +1,8 @@
 package com.mmorpg.framework.net;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.util.ReferenceCounted;
-
-import java.nio.channels.Channel;
 
 /**
  * @author Ariescat

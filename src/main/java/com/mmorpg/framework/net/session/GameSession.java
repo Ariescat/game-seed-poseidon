@@ -3,7 +3,7 @@ package com.mmorpg.framework.net.session;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.mmorpg.framework.cross.CrossInfo;
+import com.mmorpg.framework.cross.client.CrossInfo;
 import com.mmorpg.framework.net.NullChannel;
 import com.mmorpg.framework.packet.AbstractPacket;
 import com.mmorpg.framework.packet.PacketDecodeException;

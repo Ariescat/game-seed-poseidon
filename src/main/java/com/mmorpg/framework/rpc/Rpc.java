@@ -1,6 +1,6 @@
 package com.mmorpg.framework.rpc;
 
-import com.mmorpg.framework.cross.CrossClient;
+import com.mmorpg.framework.cross.client.CrossClient;
 import com.mmorpg.framework.cross.RemoteServers;
 import com.mmorpg.framework.rpc.future.RpcCallResponseFuture;
 import com.mmorpg.framework.rpc.future.RpcFutures;
