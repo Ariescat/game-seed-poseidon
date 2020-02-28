@@ -1,5 +1,7 @@
 package com.mmorpg.framework;
 
+import com.mmorpg.framework.rpc.example.method.client.RpcClientTest;
+import com.mmorpg.logic.modules.activity.IActivityService;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StopWatch;
@@ -19,6 +21,11 @@ public class TestStart {
 		stopWatch.stop();
 		System.err.println("used time:" + stopWatch.getTotalTimeMillis());
 
+		// test rpc
+		RpcClientTest clientTest = context.getBean(RpcClientTest.class);
+		clientTest.test();
+
+		// test groovy
 //		IActivityService activityService = context.getBean(IActivityService.class);
 //		activityService.reqInfo();
 	}
