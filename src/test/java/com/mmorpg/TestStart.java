@@ -1,4 +1,4 @@
-package com.mmorpg.framework;
+package com.mmorpg;
 
 import com.mmorpg.framework.rpc.example.method.client.RpcClientTest;
 import com.mmorpg.logic.modules.activity.IActivityService;
