@@ -1,4 +1,4 @@
-package com.mmorpg.logic;
+package com.mmorpg;
 
 import com.mmorpg.framework.http.asynchttp.AsyncHttpClientUtils;
 import com.mmorpg.framework.listener.ListenerManager;
