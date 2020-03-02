@@ -1,5 +1,6 @@
 package com.mmorpg.framework.net;
 
+import com.google.common.base.Charsets;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
 import io.netty.util.ReferenceCounted;
@@ -39,76 +40,79 @@ public class ByteBufRequest implements Request, ReferenceCounted {
 
 	@Override
 	public short getPacketId() {
-		return 0;
+		return packetId;
 	}
 
 	@Override
 	public int getByteSize() {
-		return 0;
-	}
-
-	@Override
-	public byte readByte() {
-		return 0;
-	}
-
-	@Override
-	public short readShort() {
-		return 0;
-	}
-
-	@Override
-	public int readInt() {
-		return 0;
-	}
-
-	@Override
-	public long readLong() {
-		return 0;
-	}
-
-	@Override
-	public float readFloat() {
-		return 0;
-	}
-
-	@Override
-	public String readString() {
-		return null;
+		return byteSize;
 	}
 
 	@Override
 	public ByteBuf getByteBuf() {
-		return null;
+		return byteBuf;
+	}
+
+	@Override
+	public byte readByte() {
+		return byteBuf.readByte();
+	}
+
+	@Override
+	public short readShort() {
+		return byteBuf.readShort();
+	}
+
+	@Override
+	public int readInt() {
+		return byteBuf.readInt();
+	}
+
+	@Override
+	public long readLong() {
+		return byteBuf.readLong();
+	}
+
+	@Override
+	public float readFloat() {
+		return byteBuf.readFloat();
+	}
+
+	@Override
+	public String readString() {
+		short length = byteBuf.readShort();
+		byte[] content = new byte[length];
+		byteBuf.readBytes(content);
+		return new String(content, Charsets.UTF_8);
 	}
 
 	@Override
 	public void readBytes(byte[] dst) {
-
+		byteBuf.readBytes(dst);
 	}
 
 	@Override
 	public int refCnt() {
-		return 0;
+		return byteBuf.refCnt();
 	}
 
 	@Override
 	public ReferenceCounted retain() {
-		return null;
+		return byteBuf.retain();
 	}
 
 	@Override
 	public ReferenceCounted retain(int increment) {
-		return null;
+		return byteBuf.retain(increment);
 	}
 
 	@Override
 	public boolean release() {
-		return false;
+		return byteBuf.release();
 	}
 
 	@Override
 	public boolean release(int decrement) {
-		return false;
+		return byteBuf.release(decrement);
 	}
 }

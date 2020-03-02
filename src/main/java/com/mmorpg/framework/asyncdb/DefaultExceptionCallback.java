@@ -15,7 +15,7 @@ public class DefaultExceptionCallback implements ExceptionCallback {
 
 	@Override
 	public void onException(Exception ex) {
-		// TODO http上报
+		// TODO http上报异常信息
 		ex.printStackTrace();
 	}
 }

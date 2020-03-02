@@ -10,6 +10,10 @@ public interface Response {
 
 	short getPacketId();
 
+	ByteBuf getByteBuf();
+
+	int getIndex();
+
 	Response writeByte(int value);
 
 	Response writeShort(int value);
@@ -20,6 +24,8 @@ public interface Response {
 
 	Response writeBytes(byte[] bytes);
 
+	Response writeBytes(ByteBuf src);
+
 	Response writeBytes(byte[] src, int srcIndex, int length);
 
 	Response writeFloat(float value);
@@ -28,11 +34,5 @@ public interface Response {
 
 	Response writeString(String value);
 
-	int getIndex();
-
 	Response write48bit(long value);
-
-	Response writeBytes(ByteBuf src);
-
-	ByteBuf getByteBuf();
 }

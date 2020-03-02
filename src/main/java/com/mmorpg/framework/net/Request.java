@@ -15,6 +15,8 @@ public interface Request {
 	 */
 	int getByteSize();
 
+	ByteBuf getByteBuf();
+
 	byte readByte();
 
 	short readShort();
@@ -26,8 +28,6 @@ public interface Request {
 	float readFloat();
 
 	String readString();
-
-	ByteBuf getByteBuf();
 
 	void readBytes(byte[] dst);
 }

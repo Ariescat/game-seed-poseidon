@@ -1,6 +1,6 @@
 package com.mmorpg.logic.base.login;
 
-import com.mmorpg.framework.utils.ConstantFrameWork;
+import com.mmorpg.framework.utils.Constant;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.AbstractPacket;
 import com.mmorpg.framework.packet.impl.RespLoginAskPacket;
@@ -26,7 +26,7 @@ public class GateKeepers extends Sprite {
 		this.index = index;
 	}
 
-	private static int num = ConstantFrameWork.TWICE_CPU;
+	private static int num = Constant.TWICE_CPU;
 	private static GateKeepers[] keepers;
 
 	public static void initialize() {

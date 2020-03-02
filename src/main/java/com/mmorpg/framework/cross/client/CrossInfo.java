@@ -52,4 +52,10 @@ public class CrossInfo {
 	public void setCrossType(CrossType crossType) {
 		this.crossType = crossType;
 	}
+
+	public void clear() {
+		crossStatus = CrossStatus.Normal;
+		platform = "";
+		serverId = 0;
+	}
 }

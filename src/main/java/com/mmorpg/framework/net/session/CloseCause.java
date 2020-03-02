@@ -5,4 +5,6 @@ package com.mmorpg.framework.net.session;
  * @version 2020/2/19 14:18
  */
 public enum CloseCause {
+
+	Status_Exception,
 }

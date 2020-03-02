@@ -9,7 +9,7 @@ import com.mmorpg.framework.net.session.GameSession;
  */
 public class PacketDecoder {
 
-	public static Request decode(Request request, GameSession session, boolean needDecode) {
+	public static Request decode(Request request, GameSession session, boolean needDecode) throws PacketDecodeException {
 //		TODO
 		return request;
 	}

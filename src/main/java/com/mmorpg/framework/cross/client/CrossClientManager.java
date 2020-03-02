@@ -1,6 +1,7 @@
 package com.mmorpg.framework.cross.client;
 
 import com.mmorpg.framework.cross.ServerInfo;
+import com.mmorpg.logic.base.scene.creature.player.Player;
 import io.netty.util.internal.chmv8.ConcurrentHashMapV8;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,5 +23,9 @@ public class CrossClientManager {
 	public CrossClient getCrossClientByServerInfo(ServerInfo serverInfo) {
 		// TODO
 		return null;
+	}
+
+	public void crossExit(Player player) {
+
 	}
 }

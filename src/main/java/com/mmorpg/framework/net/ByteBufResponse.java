@@ -28,6 +28,16 @@ public class ByteBufResponse implements Response, ReferenceCounted {
 	}
 
 	@Override
+	public ByteBuf getByteBuf() {
+		return byteBuf;
+	}
+
+	@Override
+	public int getIndex() {
+		return byteBuf.writerIndex();
+	}
+
+	@Override
 	public Response writeByte(int value) {
 		byteBuf.writeByte(value);
 		return this;
@@ -64,6 +74,12 @@ public class ByteBufResponse implements Response, ReferenceCounted {
 	}
 
 	@Override
+	public Response writeBytes(ByteBuf src) {
+		byteBuf.writeBytes(src);
+		return this;
+	}
+
+	@Override
 	public Response writeFloat(float value) {
 		byteBuf.writeFloat(value);
 		return this;
@@ -82,48 +98,33 @@ public class ByteBufResponse implements Response, ReferenceCounted {
 	}
 
 	@Override
-	public int getIndex() {
-		return byteBuf.writerIndex();
-	}
-
-	@Override
 	public Response write48bit(long value) {
-		// TODO
-		return null;
-	}
-
-	@Override
-	public Response writeBytes(ByteBuf src) {
-		return null;
-	}
-
-	@Override
-	public ByteBuf getByteBuf() {
-		return byteBuf;
+		ByteBufUtils.write48bit(byteBuf, value);
+		return this;
 	}
 
 	@Override
 	public int refCnt() {
-		return 0;
+		return byteBuf.refCnt();
 	}
 
 	@Override
 	public ReferenceCounted retain() {
-		return null;
+		return byteBuf.retain();
 	}
 
 	@Override
 	public ReferenceCounted retain(int increment) {
-		return null;
+		return byteBuf.retain(increment);
 	}
 
 	@Override
 	public boolean release() {
-		return false;
+		return byteBuf.release();
 	}
 
 	@Override
 	public boolean release(int decrement) {
-		return false;
+		return byteBuf.release(decrement);
 	}
 }
