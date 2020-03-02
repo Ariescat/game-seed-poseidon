@@ -27,7 +27,6 @@ public class ScheduledExecutorServiceTest {
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				try {
 					Thread.sleep(5000);
 				} catch (InterruptedException ex) {
@@ -39,7 +38,7 @@ public class ScheduledExecutorServiceTest {
 		}, time - 1, TimeUnit.SECONDS);
 	}
 
-	private void sumbit() {
+	private void submit() {
 		//submit方法有返回值Future。get()
 		executorService.submit(new Runnable() {
 			@Override

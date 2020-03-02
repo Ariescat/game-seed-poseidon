@@ -41,7 +41,6 @@ public class GameAuthHandler extends ChannelInboundHandlerAdapter {
 		}
 		Player player = gameSession.getPlayer();
 		if (player != null && player.isCrossed()) {
-			// TODO 处理跨服
 			Context.it().crossClientManager.crossExit(player);
 			player.getCrossInfo().clear();
 		}
