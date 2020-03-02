@@ -4,6 +4,7 @@ import com.koloboke.collect.map.ShortObjMap;
 import com.koloboke.collect.map.hash.HashShortObjMaps;
 import com.mmorpg.framework.annoscan.AnnoScannerListener;
 import com.mmorpg.framework.packet.anno.Packet;
+import com.mmorpg.framework.utils.ClassUtils;
 import org.apache.commons.collections.MapUtils;
 import org.springframework.asm.AnnotationVisitor;
 import org.springframework.asm.ClassReader;
@@ -19,7 +20,6 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.stereotype.Component;
 
-import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.util.Map;
 
@@ -43,12 +43,24 @@ public class PacketScanner implements AnnoScannerListener, ApplicationContextAwa
 		final ShortObjMap<Class<? extends AbstractPacket>> packets = HashShortObjMaps.newUpdatableMap();
 		final ShortObjMap<Boolean> crossPackets = HashShortObjMaps.newUpdatableMap();
 
+//		loadPacketOld(new Consumer() {
+//			@Override
+//			public void accept(Class<? extends AbstractPacket> clazz, short[] commandIds, boolean cross) {
+//				doLoadPacket(clazz, commandIds, cross, packets, crossPackets);
+//			}
+//		});
 		loadPacketByResourceScan(factory, resources, new Consumer() {
 			@Override
 			public void accept(Class<? extends AbstractPacket> clazz, short[] commandIds, boolean cross) {
 				doLoadPacket(clazz, commandIds, cross, packets, crossPackets);
 			}
 		});
+//		loadPacketByASM("com.mmorpg", new Consumer() {
+//			@Override
+//			public void accept(Class<? extends AbstractPacket> clazz, short[] commandIds, boolean cross) {
+//				doLoadPacket(clazz, commandIds, cross, packets, crossPackets);
+//			}
+//		});
 
 		PacketFactory.init(packets, crossPackets);
 	}
@@ -97,54 +109,55 @@ public class PacketScanner implements AnnoScannerListener, ApplicationContextAwa
 		}
 	}
 
-	private void loadPacketByASM(MetadataReaderFactory factory, Resource[] resources, final Consumer consumer) throws IOException {
+	private void loadPacketByASM(String packageName, final Consumer consumer) throws IOException {
 		final int api = Opcodes.ASM4;
 		final String packetDesc = "L" + Packet.class.getName().replace('.', '/') + ";";
 		final String commandIdStr = "commandId";
 		final String crossStr = "cross";
 
-		for (Resource resource : resources) {
-			if (!resource.isReadable()) continue;
+		ClassUtils.scanPackage(packageName, true, new com.koloboke.function.Consumer<String>() {
+			@Override
+			public void accept(String s) {
+				try {
+					final ClassReader classReader = new ClassReader(s);
+					classReader.accept(new ClassVisitor(api) {
+						@Override
+						public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
+							if (packetDesc.equals(desc)) {
+								return new AnnotationVisitor(api) {
+									short[] commandId;
+									boolean cross;
 
-			if (resource.getFilename().endsWith(JavaFileObject.Kind.CLASS.extension)) {
-				// 去掉后面的.class后缀
-				final String className = resource.getFilename().substring(0, resource.getFilename().length() - 6);
-				ClassReader classReader = new ClassReader(className);
-				classReader.accept(new ClassVisitor(api) {
-					@Override
-					public AnnotationVisitor visitAnnotation(String desc, boolean visible) {
-						if (packetDesc.equals(desc)) {
-							return new AnnotationVisitor(api) {
-								short[] commandId;
-								boolean cross;
-
-								@Override
-								public void visit(String name, Object value) {
-									if (commandIdStr.equals(name)) {
-										this.commandId = (short[]) value;
-									} else if (crossStr.equals(name)) {
-										this.cross = (boolean) value;
+									@Override
+									public void visit(String name, Object value) {
+										if (commandIdStr.equals(name)) {
+											this.commandId = (short[]) value;
+										} else if (crossStr.equals(name)) {
+											this.cross = (boolean) value;
+										}
+										super.visit(name, value);
 									}
-									super.visit(name, value);
-								}
 
-								@Override
-								public void visitEnd() {
-									try {
-										//noinspection unchecked
-										Class<? extends AbstractPacket> clazz = (Class<? extends AbstractPacket>) Class.forName(className);
-										consumer.accept(clazz, commandId, cross);
-									} catch (ClassNotFoundException e) {
-										e.printStackTrace();
+									@Override
+									public void visitEnd() {
+										try {
+											Class<?> clazz = Class.forName(classReader.getClassName().replace('/', '.'));
+											//noinspection unchecked
+											consumer.accept((Class<? extends AbstractPacket>) clazz, commandId, cross);
+										} catch (ClassNotFoundException e) {
+											e.printStackTrace();
+										}
 									}
-								}
-							};
+								};
+							}
+							return super.visitAnnotation(desc, visible);
 						}
-						return null;
-					}
-				}, ClassReader.SKIP_CODE);
+					}, ClassReader.SKIP_CODE);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		}
+		});
 	}
 }
 
