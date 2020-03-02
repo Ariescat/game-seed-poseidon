@@ -5,7 +5,7 @@ import com.mmorpg.framework.net.Request;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.exception.PacketDecodeException;
 import com.mmorpg.framework.utils.AuthUtils;
-import com.mmorpg.framework.utils.CRC32Utils;
+import com.mmorpg.framework.utils.crc32.CRC32Utils;
 import io.netty.buffer.ByteBuf;
 
 /**
