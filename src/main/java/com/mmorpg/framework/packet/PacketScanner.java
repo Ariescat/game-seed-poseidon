@@ -159,8 +159,9 @@ public class PacketScanner implements AnnoScannerListener, ApplicationContextAwa
 			}
 		});
 	}
+
+	interface Consumer {
+		void accept(Class<? extends AbstractPacket> clazz, short[] commandIds, boolean cross);
+	}
 }
 
-interface Consumer {
-	void accept(Class<? extends AbstractPacket> clazz, short[] commandIds, boolean cross);
-}
