@@ -8,6 +8,10 @@ package com.mmorpg.framework.packet;
  */
 public class PacketId {
 
+	/**
+	 * 请求登录验证
+	 */
+	public static final short REQ_LOGIN_AUTH = 10101;
 
 	/**
 	 * =============== utils ===============

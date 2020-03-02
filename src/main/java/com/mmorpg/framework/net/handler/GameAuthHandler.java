@@ -55,7 +55,7 @@ public class GameAuthHandler extends ChannelInboundHandlerAdapter {
 		}
 
 		Request request = (Request) msg;
-		AbstractPacket packet = PacketFactory.createPacket(request, session);
+		AbstractPacket packet = PacketFactory.decodePacket(request, session);
 		// TODO
 
 		if (log.isDebugEnabled()) {

@@ -24,6 +24,8 @@ public class ConfigService {
 	 */
 	private Set<String> sameIpWhiteList;
 
+	private boolean encryptEnabled = true;
+
 	/**
 	 * 允许最大在线数量
 	 */
@@ -63,6 +65,11 @@ public class ConfigService {
 	}
 
 	public String getCrossAuthKey() {
+		// 读取 independent/cross.properties 的 AUTH_KEY
 		return "";
+	}
+
+	public boolean isEncryptEnabled() {
+		return encryptEnabled;
 	}
 }

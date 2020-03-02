@@ -445,7 +445,7 @@ public class GameSession {
 		return sno;
 	}
 
-	public int getSerialN0() {
+	public int getSerialNO() {
 		return this.serialNO.get();
 	}
 

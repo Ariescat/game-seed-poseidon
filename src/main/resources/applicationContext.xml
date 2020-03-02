@@ -2,7 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   					   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   					   http://www.springframework.org/schema/context
+	   					   http://www.springframework.org/schema/context/spring-context.xsd
+	   					   http://www.springframework.org/schema/task
+	   					   http://www.springframework.org/schema/task/spring-task.xsd">
 
 	<bean class="com.mmorpg.framework.groovy.GroovyFactory">
 		<property name="directory" value="groovy"/>
@@ -12,9 +18,18 @@
 
 	<bean class="net.paoding.rose.jade.context.spring.JadeBeanFactoryPostProcessor"/>
 
-	<!-- spring版本3.2.4.RELEASE xml不支持exclude和include同时配置，但底层实现代码是没有限制的，而4.3.14.RELEASE这个版本就可以 -->
 	<context:component-scan base-package="com.mmorpg">
+		<!-- spring版本3.2.4.RELEASE xml不支持exclude和include同时配置，但底层实现代码是没有限制的，而4.3.14.RELEASE这个版本就可以 -->
 		<!--<context:exclude-filter type="annotation" expression="net.paoding.rose.jade.annotation.DAO"/>-->
+
+		<!--扫描Packet的注解类，现已弃用-->
+		<!--<context:include-filter type="annotation" expression="com.mmorpg.framework.packet.anno.Packet"/>-->
+
+		<!--TODO 其实这个Listener的扫描作用不大，基本上实现这个接口的都是Spring的组件-->
 		<context:include-filter type="annotation" expression="com.mmorpg.framework.listener.annotation.Listener"/>
 	</context:component-scan>
+
+	<!--<task:executor id="executor" pool-size="5"/>
+	<task:scheduler id="scheduler" pool-size="10"/>
+	<task:annotation-driven executor="executor" scheduler="scheduler"/>-->
 </beans>
