@@ -31,9 +31,19 @@ public class OnlinePlayer {
 	 */
 	private final ConcurrentHashMap<String, Set<Long>> account_2_playerIds = new ConcurrentHashMap<>();
 	/**
-	 * 玩家账号 => 玩家ID
+	 * 玩家昵称 => 玩家ID
+	 */
+	private final ConcurrentHashMap<String, Long> name_2_playerIds = new ConcurrentHashMap<>();
+	/**
+	 * 同IP登录数量
 	 */
 	private final ConcurrentHashMap<String, AtomicInteger> ip_2_count = new ConcurrentHashMap<>();
+
+	/**
+	 * 机器人ID => 会话
+	 */
+	private final ConcurrentHashMap<Long, GameSession> robotId_2_session = new ConcurrentHashMap<>();
+
 
 	private OnlinePlayer() {
 	}
@@ -48,12 +58,24 @@ public class OnlinePlayer {
 
 	}
 
+	public GameSession getSessionById(long playerId) {
+		GameSession gameSession = playerId_2_session.get(playerId);
+		if (gameSession == null) {
+			gameSession = robotId_2_session.get(playerId);
+		}
+		return gameSession;
+	}
+
 	public Player getPlayerById(long playerId) {
+		GameSession session = getSessionById(playerId);
+		if (session != null) {
+			return session.getPlayer();
+		}
 		return null;
 	}
 
 	public int getOnlinePlayerCount() {
-		return 0;
+		return playerId_2_session.size();
 	}
 
 	public AtomicInteger getSameIPCount(String ip) {
@@ -78,6 +100,6 @@ public class OnlinePlayer {
 	}
 
 	public void timeoutReset(Player player, GameSessionStatusUpdateCause cause) {
-
+		// TODO
 	}
 }

@@ -1,6 +1,7 @@
 package com.mmorpg.framework.utils;
 
 import com.mmorpg.framework.net.Response;
+import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.PacketFactory;
 import com.mmorpg.framework.packet.PacketId;
 import com.mmorpg.framework.packet.ResponsePacket;
@@ -14,6 +15,10 @@ import io.netty.channel.ChannelFutureListener;
  * @version 2020/2/19 12:33
  */
 public class PacketUtils {
+
+	public static void sendAndClose(GameSession session, ResponsePacket packet) {
+		sendAndClose(session.getChannel(), packet);
+	}
 
 	public static void sendAndClose(Channel channel, ResponsePacket packet) {
 		Response response = packet.write();

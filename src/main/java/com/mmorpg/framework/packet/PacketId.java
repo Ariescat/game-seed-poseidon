@@ -44,6 +44,12 @@ public interface PacketId {
 	/*
 	 * ============================== 场景 102 ==============================
 	 */
+	/** 确认进入场景 */
+	short REQ_CONFIRM_ENTER_SCENE = 10201;
+	/** 返回确认进入场景 */
+	short RESP_CONFIRM_ENTER_SCENE = 10202;
+	/** 返回场景信息 */
+	short RESP_SCENE_INFO = 10203;
 	// TODO monster AI，Robot
 
 

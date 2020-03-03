@@ -1,0 +1,13 @@
+#### 登录流程
+
+`REQ_LOGIN_AUTH` >>
+
+`REQ_CHARACTER_LIST` >> 
+
+`REQ_LOGIN_ASK` >>
+
+`RESP_SCENE_INFO` , `MainRolePacket`>>
+
+`REQ_CONFIRM_ENTER_SCENE` 这里处理真正进场景，同步视野 >>
+
+`RESP_CONFIRM_ENTER_SCENE`

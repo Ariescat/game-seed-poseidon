@@ -5,6 +5,7 @@ import com.mmorpg.framework.cross.center.CenterServerManager;
 import com.mmorpg.framework.cross.client.CrossClientManager;
 import com.mmorpg.framework.cross.server.CrossChannelManager;
 import com.mmorpg.framework.event.EventBus;
+import com.mmorpg.logic.base.scene.creature.player.service.PlayerService;
 import com.mmorpg.logic.base.service.ConfigService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,23 @@ public class Context implements ApplicationContextAware {
 	 */
 	private static ApplicationContext applicationContext;
 
+
+	/* ============================ 系统功能 ============================ */
+	/**
+	 * 系统配置
+	 */
+	@Autowired
+	public ConfigService configService;
 	/**
 	 * db相关
 	 */
 	@Autowired
 	public AsyncDBService asyncDBService;
+	/**
+	 * 事件系统
+	 */
+	@Autowired
+	public EventBus eventBus;
 	/**
 	 * 跨服相关
 	 */
@@ -39,16 +52,12 @@ public class Context implements ApplicationContextAware {
 	public CrossChannelManager crossChannelManager;
 	@Autowired
 	public CenterServerManager centerServerManager;
-	/**
-	 * 系统配置
-	 */
+
+
+	/* ============================ 其他 ============================ */
 	@Autowired
-	public ConfigService configService;
-	/**
-	 * 事件系统
-	 */
-	@Autowired
-	public EventBus eventBus;
+	public PlayerService playerService;
+
 
 	@PostConstruct
 	public void init() {

@@ -96,7 +96,10 @@ public class LoginWatcher {
 	}
 
 	private void handleLoginLogic(Player player, GameSession session, RespLoginAskPacket packet) {
-		// TODO
+		player.sendPacket(packet.success());
+		player.login();
+
+		// TODO send scene info (sceneId, point)
 	}
 
 	/**
