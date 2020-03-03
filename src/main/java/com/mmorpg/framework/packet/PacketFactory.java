@@ -69,6 +69,13 @@ public class PacketFactory {
 				if (session != null) {
 					CrossInfo crossInfo = session.getCrossInfo();
 					if (crossInfo != null && crossInfo.isCrossed() && isCrossPacket(packetId)) {
+
+//						if (createPacket instanceof RequestPacket) {
+//							CrossType crossType = crossInfo.getCrossType();
+//							// 如果对请求包进行"SysModuleType"划分，crossType也可以进行"SysModuleType"划分，这里过滤"SysModuleType"相等的请求包过去
+//							return null;
+//						}
+
 						ByteBuf ori = request.getByteBuf();
 						ByteBuf byteBuf = ori.readBytes(ori.readableBytes() - 4);// TODO
 						DispatchPacket dispatchPacket = new DispatchPacket(session.getUid(), packetId, byteBuf);

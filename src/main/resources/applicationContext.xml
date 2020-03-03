@@ -19,14 +19,14 @@
 	<bean class="net.paoding.rose.jade.context.spring.JadeBeanFactoryPostProcessor"/>
 
 	<context:component-scan base-package="com.mmorpg">
-		<!-- spring版本3.2.4.RELEASE xml不支持exclude和include同时配置，但底层实现代码是没有限制的，而4.3.14.RELEASE这个版本就可以 -->
+		<!--spring版本3.2.4.RELEASE xml不支持exclude和include同时配置，但底层实现代码是没有限制的，而4.3.14.RELEASE这个版本就可以 -->
 		<!--<context:exclude-filter type="annotation" expression="net.paoding.rose.jade.annotation.DAO"/>-->
 
 		<!--扫描Packet的注解类，现已弃用-->
 		<!--<context:include-filter type="annotation" expression="com.mmorpg.framework.packet.anno.Packet"/>-->
 
-		<!--TODO 其实这个Listener的扫描作用不大，基本上实现这个接口的都是Spring的组件-->
-		<context:include-filter type="annotation" expression="com.mmorpg.framework.listener.annotation.Listener"/>
+		<!--其实这个Listener的扫描作用不大，基本上实现这个接口的都是Spring的组件-->
+		<!--<context:include-filter type="annotation" expression="com.mmorpg.framework.listener.annotation.Listener"/>-->
 	</context:component-scan>
 
 	<!--<task:executor id="executor" pool-size="5"/>

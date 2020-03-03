@@ -452,16 +452,15 @@ public class GameSession {
 	public void setClient(String client) {
 		this.client = client;
 		if (StringUtils.isNotBlank(client)) {
-//            this.isClient = EClientType.Mini_37.type0k(client) || EClientType.Mini_2144.type0k(client);
-//            this.is37Box - EClientType.Box_37.type0k(client);
-//            this.isSogouMini - EClientType.SogouMini.typeOk(client);
-//            this.isSogouSkin = EClientType.SogouSkin.typeOk(client);
+			this.isClient = EClientType.Mini_37.typeOK(client) || EClientType.Mini_2144.typeOK(client);
+			this.is37Box = EClientType.Box_37.typeOK(client);
+			this.isSogouMini = EClientType.Sogou_Mini.typeOK(client);
+			this.isSogouSkin = EClientType.Sogou_Skin.typeOK(client);
 		}
 	}
 
 	private void genASKey() {
-		// TODO
-		// this.account_server =
+		this.account_server = Joiner.on('_').join(account, server);
 	}
 
 	public boolean isCross() {

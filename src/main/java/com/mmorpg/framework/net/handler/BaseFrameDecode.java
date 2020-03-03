@@ -14,6 +14,22 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 请求包结构：
+ * <pre>
+ *     bytes[5, 5, 2, 7] 	包头
+ *     int 					剩余包长度
+ *     short				协议ID
+ *     bytes				协议内容
+ * </pre>
+ * <p>
+ * <p>
+ * 返回包结构：
+ * <pre>
+ *     int 					剩余包长度
+ *     short				协议ID
+ *     bytes				协议内容
+ * </pre>
+ *
  * @author Ariescat
  * @version 2020/2/28 9:55
  */

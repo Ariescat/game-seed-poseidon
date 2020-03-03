@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * 登录监视器
+ *
  * @author Ariescat
  * @version 2020/2/19 11:32
  */
