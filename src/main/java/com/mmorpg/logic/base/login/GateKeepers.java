@@ -3,7 +3,7 @@ package com.mmorpg.logic.base.login;
 import com.mmorpg.framework.utils.Constant;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.AbstractPacket;
-import com.mmorpg.framework.packet.impl.RespLoginAskPacket;
+import com.mmorpg.logic.base.login.packet.RespLoginAskPacket;
 import com.mmorpg.framework.thread.god.IRequestToGod;
 import com.mmorpg.framework.thread.god.Sprite;
 import com.mmorpg.framework.thread.god.WorldScene;

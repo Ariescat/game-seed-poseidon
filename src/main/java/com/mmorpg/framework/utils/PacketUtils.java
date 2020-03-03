@@ -5,7 +5,7 @@ import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.packet.PacketFactory;
 import com.mmorpg.framework.packet.PacketId;
 import com.mmorpg.framework.packet.ResponsePacket;
-import com.mmorpg.framework.packet.impl.RespLoginConflictPacket;
+import com.mmorpg.logic.base.login.packet.RespLoginConflictPacket;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;

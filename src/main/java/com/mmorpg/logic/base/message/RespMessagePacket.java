@@ -1,4 +1,4 @@
-package com.mmorpg.framework.packet.impl;
+package com.mmorpg.logic.base.message;
 
 import com.mmorpg.framework.message.MessageId;
 import com.mmorpg.framework.message.MessageType;

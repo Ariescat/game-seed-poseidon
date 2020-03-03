@@ -1,4 +1,4 @@
-package com.mmorpg.framework.packet.impl;
+package com.mmorpg.logic.base.login.packet;
 
 import com.mmorpg.framework.net.Response;
 import com.mmorpg.framework.packet.PacketId;
