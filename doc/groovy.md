@@ -78,18 +78,18 @@
   这两个方法都是调用到`prepareScriptBeans`方法，看进去，调用了`createScriptedObjectBeanDefinition`：
 
   ```java
-    GenericBeanDefinition objectBd = new GenericBeanDefinition(bd); // 传进父bd，也就是一开始我们GroovyFactory构建的bd
-    objectBd.setFactoryBeanName(scriptFactoryBeanName);
+  GenericBeanDefinition objectBd = new GenericBeanDefinition(bd); // 传进父bd，也就是一开始我们GroovyFactory构建的bd
+  objectBd.setFactoryBeanName(scriptFactoryBeanName);
   objectBd.setFactoryMethodName("getScriptedObject"); // 看到这里是不是就和GroovyScriptFactor对应上啦，之后spring就会走工厂方法把对象构造出来
-    objectBd.getConstructorArgumentValues().clear();
+  objectBd.getConstructorArgumentValues().clear();
   objectBd.getConstructorArgumentValues().addIndexedArgumentValue(0, scriptSource);
-    objectBd.getConstructorArgumentValues().addIndexedArgumentValue(1, interfaces);
+  objectBd.getConstructorArgumentValues().addIndexedArgumentValue(1, interfaces);
   ```
 
     `createScriptedObjectBeanDefinition`调用完后，会执行：
 
   ```java
-    if (refreshCheckDelay >= 0) {
+  if (refreshCheckDelay >= 0) {
     	objectBd.setScope(BeanDefinition.SCOPE_PROTOTYPE); // 这一步很重要，此后的脚本热替换要用到
   }
   ```
@@ -99,43 +99,41 @@
     其实这里的`scriptFactory`和`scriptSource`没太看懂是干嘛的，以后研究下
 
   ```java
-    ScriptFactory scriptFactory = this.scriptBeanFactory.getBean(scriptFactoryBeanName, ScriptFactory.class);
-    ScriptSource scriptSource = getScriptSource(scriptFactoryBeanName, scriptFactory.getScriptSourceLocator());
+  ScriptFactory scriptFactory = this.scriptBeanFactory.getBean(scriptFactoryBeanName, ScriptFactory.class);
+  ScriptSource scriptSource = getScriptSource(scriptFactoryBeanName, scriptFactory.getScriptSourceLocator());
   ```
 
     
 
-  - 执行到`postProcessBeforeInstantiation`，才真正调用`createRefreshableProxy`：
+- 执行到`postProcessBeforeInstantiation`，才真正调用`createRefreshableProxy`：
 
-    ```java
-    RefreshableScriptTargetSource ts = new RefreshableScriptTargetSource(this.scriptBeanFactory,
-    		scriptedObjectBeanName, scriptFactory, scriptSource, isFactoryBean);
-    ...
-    return createRefreshableProxy(ts, interfaces, proxyTargetClass);
-    
+  ```java
+  RefreshableScriptTargetSource ts = new RefreshableScriptTargetSource(this.scriptBeanFactory,
+  		scriptedObjectBeanName, scriptFactory, scriptSource, isFactoryBean);
+  ...
+  return createRefreshableProxy(ts, interfaces, proxyTargetClass);
+  
+  ```
+  看`createRefreshableProxy`这个方法内部，事实上是调用了`new JdkDynamicAopProxy(config)`创建了一个代理对象。此后调用接口的方法则会这样执行:
+  
+  ```java
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+      ...
+          TargetSource targetSource = this.advised.targetSource; // 这里的targetSource就是RefreshableScriptTargetSource
+      ...
+          target = targetSource.getTarget(); // 看父类的getTarget
+      ...
+          // 接下来就是反射调用了
+  }
+  
     ```
-
-  ```
-    看`createRefreshableProxy`这个方法内部，事实上是调用了`new JdkDynamicAopProxy(config)`创建了一个代理对象。此后调用接口的方法则会这样执行:
   
-    ```java
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        ...
-        TargetSource targetSource = this.advised.targetSource; // 这里的targetSource就是RefreshableScriptTargetSource
-        ...
-        target = targetSource.getTarget(); // 看父类的getTarget
-        ...
-        // 接下来就是反射调用了
-    }
+  **附：**
   
-  ```
-
-    **附：**
-
-    其实这里还有一个坑：`groovy`注册进`spring`，但没地方引用，启动的时候是不会进`postProcessBeforeInstantiation`这个方法的。虽然以后调用`getBean`会重新进来，但如果是想在启动的时候做一些工作，则要注意这一点。
-
-    
-
+  其实这里还有一个坑：`groovy`注册进`spring`，但没地方引用，启动的时候是不会进`postProcessBeforeInstantiation`这个方法的。虽然以后调用`getBean`会重新进来，但如果是想在启动的时候做一些工作，则要注意这一点。
+  
+  
+  
 - `getTarget`是怎么拿到实例化的`groovy`对象呢？看`GroovyScriptFactory`的源码`getScriptedObject`：
 
   ```java
