@@ -22,11 +22,11 @@
   
     **附：**
   
-    因为这里拷贝了spring默认的工厂，此后的groovy的构造是`scriptBeanFactory`，所以如果想对groovy的代码进行扩展，则必要要在`ScriptFactoryPostProcessor`执行之前做处理。
+    因为这里拷贝了`spring`默认的工厂，此后的`groovy`的构造是`scriptBeanFactory`，所以如果想对groovy的代码进行扩展，则必要要在`ScriptFactoryPostProcessor`执行之前做处理。
   
     * `RpcConsumerProcessor`
   
-      如新增一个`RpcConsumerProcessor`对groovy类注解有`@RpcConsumer`的字段进行RPC代理注入，则必要提高`RpcConsumerProcessor`的优先级，可以考虑实现`PriorityOrdered`，不然的话`scriptBeanFactory` `copy`完了是拿不到`RpcConsumerProcessor`的，更别说执行了）
+      如新增一个`RpcConsumerProcessor`对`groovy`类注解有`@RpcConsumer`的字段进行RPC代理注入，则必要提高`RpcConsumerProcessor`的优先级，可以考虑实现`PriorityOrdered`，不然的话`scriptBeanFactory` `copy`完了是拿不到`RpcConsumerProcessor`的，更别说执行了）
   
       至于为什么会这样就要看Spring的代码了：`AbstractApplicationContext#registerBeanPostProcessors`：
   
@@ -112,4 +112,15 @@
     
     
     
-  - `getTarget`是怎么拿到实例化的`groovy`对象呢？
+  - `getTarget`是怎么拿到实例化的`groovy`对象呢？看`GroovyScriptFactory`的源码：
+  
+    ```java
+    this.scriptClass = getGroovyClassLoader().parseClass(
+    							scriptSource.getScriptAsString(), scriptSource.suggestedClassName());
+    
+    GroovyObject goo = (GroovyObject) scriptClass.newInstance();
+    ```
+  
+    再深层一点就不解读了，涉及到`groovy`的编译了，有兴趣可以去了解`org.codehaus.groovy.runtime.callsite.CallSite`以及**invokedynamic指令**
+  
+    [test-metis](https://github.com/Ariescat/test-metis) -> GroovyClassLoaderApp.java 这里测试了一些groovy的基础功能
