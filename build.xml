@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ant-config" basedir=".">
+
+	<property file="my.properties"/>
+
+	<target name="echo" description="测试echo">
+		<echo>hello ant</echo>
+	</target>
+
+	<target name="svn_update_config" description="svn更新配置文件">
+		<exec executable="cmd">
+			<arg value="/c"/>
+			<arg value="svn update"/>
+			<arg value="{config.path}"/>
+		</exec>
+		<!--等同-->
+		<!--<exec executable="svn">
+			<arg line="update {config.path}"/>
+		</exec>-->
+		<!--也等同-->
+		<!--<exec command="svn update {config.path}"/>-->
+	</target>
+
+	<target name="execJava">
+		<java jar="XXX.jar" maxmemory="1024m">
+			<sysproperty key="file.encoding" value="UTF-8"/>
+			<arg value="{config.path}"/>
+		</java>
+	</target>
+</project>
