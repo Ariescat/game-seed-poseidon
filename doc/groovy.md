@@ -21,13 +21,13 @@
 
     **附：**
 
-    因为这里拷贝了`spring`默认的工厂，此后的`groovy`的构造是`scriptBeanFactory`，所以如果想对groovy的代码进行扩展，则必要要在`ScriptFactoryPostProcessor`执行之前做处理。
+    因为这里拷贝了`spring`默认的工厂，此后的`groovy`的构造是由`scriptBeanFactory`完成的，所以如果想对groovy的代码进行扩展，则必要要在`ScriptFactoryPostProcessor`执行之前做处理。
 
     - `RpcConsumerProcessor`
 
-      如新增一个`RpcConsumerProcessor`对`groovy`类注解有`@RpcConsumer`的字段进行RPC代理注入，则必要提高`RpcConsumerProcessor`的优先级，可以考虑实现`PriorityOrdered`，不然的话`scriptBeanFactory` `copy`完了是拿不到`RpcConsumerProcessor`的，更别说执行了）
+      如新增一个`RpcConsumerProcessor`对`groovy`类注解有`@RpcConsumer`的字段进行RPC代理注入，则必要提高`RpcConsumerProcessor`的优先级，可以考虑实现`PriorityOrdered`，不然的话`scriptBeanFactory` `copy`完了是拿不到`RpcConsumerProcessor`的，更别说执行了
 
-      至于为什么会这样就要看Spring的代码了：`AbstractApplicationContext#registerBeanPostProcessors`：
+      至于为什么会这样就要看Spring的源码了`AbstractApplicationContext#registerBeanPostProcessors`：
 
       ```java
       // First, register the BeanPostProcessors that implement PriorityOrdered.
@@ -51,7 +51,7 @@
 
       
 
-    - 构造完groovy对象后，spring的`doCreateBean`：
+    - 构造完groovy对象后，看spring的`doCreateBean`：
 
       ```java
       // Initialize the bean instance.
@@ -64,7 +64,7 @@
       }
       ```
 
-      `initializeBean`就会触发各种`BeanPostProcessors`：
+      这里`initializeBean`就会触发各种`BeanPostProcessors`，完成上面自定义的`BeanPostProcessors`的调用：
 
       ```java
       applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
@@ -144,8 +144,8 @@
   
   再深层一点就不解读了，涉及到`groovy`的编译了，有兴趣可以去了解：
 
-  1. `org.codehaus.groovy.runtime.callsite.CallSite`
-2. **invokedynamic指令**
+    1. `org.codehaus.groovy.runtime.callsite.CallSite`
+    2. **invokedynamic指令**
   
   这里我也测试了一些基础的`java`与`groovy`的结合使用：
 
