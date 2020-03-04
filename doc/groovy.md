@@ -119,11 +119,11 @@
   ```java
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
       ...
-          TargetSource targetSource = this.advised.targetSource; // 这里的targetSource就是RefreshableScriptTargetSource
+      TargetSource targetSource = this.advised.targetSource; // 这里的targetSource就是RefreshableScriptTargetSource
       ...
-          target = targetSource.getTarget(); // 看父类的getTarget
+      target = targetSource.getTarget(); // 看父类的getTarget
       ...
-          // 接下来就是反射调用了
+      // 接下来就是反射调用了
   }
   
     ```
@@ -140,15 +140,13 @@
   this.scriptClass = getGroovyClassLoader().parseClass(scriptSource.getScriptAsString(), scriptSource.suggestedClassName()); // 这里面把groovy编译为字节码，并装载进虚拟机
   
   GroovyObject goo = (GroovyObject) scriptClass.newInstance();
-  
-  
   ```
-
+  
   再深层一点就不解读了，涉及到`groovy`的编译了，有兴趣可以去了解：
 
   1. `org.codehaus.groovy.runtime.callsite.CallSite`
-  2. **invokedynamic指令**
-
+2. **invokedynamic指令**
+  
   这里我也测试了一些基础的`java`与`groovy`的结合使用：
 
   ​	[test-metis](https://github.com/Ariescat/test-metis) -> `GroovyClassLoaderApp.java` 
