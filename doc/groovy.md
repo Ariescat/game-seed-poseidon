@@ -11,14 +11,14 @@
   也就是最终产生能执行的class是在这个工厂里编译出来的
 
 
-- `org.springframework.scripting.support.ScriptFactoryPostProcessor`，看spring对groovy的支持
+- `org.springframework.scripting.support.ScriptFactoryPostProcessor`，看`spring`对`groovy`的支持
 
 	- 先执行`setBeanFactory`，这里有一行关键的代码：
 
 	  ```java
 	  // Required so that all BeanPostProcessors, Scopes, etc become available.
     this.scriptBeanFactory.copyConfigurationFrom(this.beanFactory);
-    ```
+	  ```
   
     **附：**
   
@@ -84,18 +84,32 @@
   
     
   
-  	* 执行到`postProcessBeforeInstantiation`，才真正调用`createRefreshableProxy`
-  	
-  	**附：**
-  	
-  	其实这里还有一个坑：
-  	
-  	groovy注册进，不引用	
-
-
-	
-
-
-​	
-
-	
+  - 执行到`postProcessBeforeInstantiation`，才真正调用`createRefreshableProxy`：
+  
+    ```java
+  RefreshableScriptTargetSource ts = new RefreshableScriptTargetSource(this.scriptBeanFactory,
+    		scriptedObjectBeanName, scriptFactory, scriptSource, isFactoryBean);
+  ...
+    return createRefreshableProxy(ts, interfaces, proxyTargetClass);
+    ```
+    
+    看`createRefreshableProxy`这个方法内部，事实上是调用了`new JdkDynamicAopProxy(config)`创建了一个代理对象。此后调用接口的方法则会这样执行:
+    
+    ```java
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        ...
+        TargetSource targetSource = this.advised.targetSource; // 这里的targetSource就是RefreshableScriptTargetSource
+        ...
+        target = targetSource.getTarget(); // 看父类的getTarget
+        ...
+        // 接下来就是反射调用了
+    }
+    ```
+    
+    **附：**
+    
+    其实这里还有一个坑：`groovy`注册进`spring`，但没地方引用，启动的时候是不会进`postProcessBeforeInstantiation`这个方法的。虽然以后调用`getBean`会重新进来，但如果是想在启动的时候做一些工作，则要注意这一点。
+    
+    
+    
+  - `getTarget`是怎么拿到实例化的`groovy`对象呢？
