@@ -3,6 +3,9 @@ package com.mmorpg.logic.base.scene;
 import com.mmorpg.framework.thread.god.UniversalSpokesmanOfGod;
 import com.mmorpg.framework.utils.ExceptionUtils;
 import com.mmorpg.framework.utils.Profile;
+import com.mmorpg.logic.base.scene.creature.GObject;
+import com.mmorpg.logic.base.scene.creature.player.Player;
+import com.mmorpg.logic.base.scene.point.Point;
 import org.apache.commons.lang.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -170,6 +173,35 @@ public class Scene extends UniversalSpokesmanOfGod implements Cloneable {
 	}
 
 	private void checkStop() {
+
+	}
+
+	public void enterScene(Player player, Point point) {
+		// TODO 打断移动
+		addSceneMessage(new RequestEnterScene(player, sceneId, point));
+	}
+
+	public void objectEnterScene(GObject object) {
+		// TODO 视野同步
+	}
+
+	public void beforeObjectEnterScene(GObject object) {
+		// TODO 提供生命周期流程
+	}
+
+	public void afterObjectEnterScene(GObject object) {
+
+	}
+
+	public void objectLeaveScene(GObject object) {
+		// TODO 视野同步
+	}
+
+	public void beforeObjectLeaveScene(GObject object) {
+
+	}
+
+	public void afterObjectLeaveScene(GObject object) {
 
 	}
 

@@ -3,7 +3,10 @@ package com.mmorpg;
 import com.mmorpg.framework.http.asynchttp.AsyncHttpClientUtils;
 import com.mmorpg.framework.listener.ListenerManager;
 import com.mmorpg.framework.net.NetServer;
+import com.mmorpg.framework.thread.god.WorldScene;
+import com.mmorpg.logic.base.Context;
 import com.mmorpg.logic.base.login.GateKeepers;
+import com.mmorpg.logic.base.scene.FreeScene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -28,8 +31,12 @@ public class Start {
 		stopWatch.start();
 
 		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+
 		ListenerManager.getInstance().init(ctx);
 		GateKeepers.initialize();
+		Context.it().sceneService.initializeNormalScene();
+		WorldScene.getInstance().executeWorker(FreeScene.INSTANT);
+
 		netServer = new NetServer();
 		netServer.startServer(4010);
 

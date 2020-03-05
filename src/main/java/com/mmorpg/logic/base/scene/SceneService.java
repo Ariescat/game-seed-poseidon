@@ -11,7 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SceneService {
 
-	public void enterScene(int sceneId, Player player, Point coord) {
-		// TODO
+	public void initializeNormalScene() {
+
+	}
+
+	public void enterScene(int sceneId, Player player, Point point) {
+		// TODO {@link Scene.enterScene}
 	}
 }

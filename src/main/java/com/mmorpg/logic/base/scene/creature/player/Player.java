@@ -7,6 +7,7 @@ import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
 import com.mmorpg.framework.packet.AbstractPacket;
 import com.mmorpg.framework.utils.ExceptionUtils;
 import com.mmorpg.logic.base.Context;
+import com.mmorpg.logic.base.scene.Scene;
 import com.mmorpg.logic.base.scene.creature.GObject;
 import com.mmorpg.logic.base.scene.creature.player.entity.PlayerEntity;
 import com.mmorpg.logic.base.scene.point.Point;
@@ -123,6 +124,11 @@ public class Player extends GObject {
 	}
 
 	public void exitScene() {
-		// TODO
+		Scene scene = getScene();
+		if (scene != null) {
+			scene.beforeObjectLeaveScene(this);
+			scene.objectLeaveScene(this);
+			scene.afterObjectLeaveScene(this);
+		}
 	}
 }

@@ -21,7 +21,13 @@ public class RequestEnterScene implements ISceneMessage {
 
 	@Override
 	public void execute(Scene curScene) {
-		// TODO
+		// ...
+
+		curScene.beforeObjectEnterScene(player);
+		curScene.objectEnterScene(player);
+		curScene.afterObjectEnterScene(player);
+
+		// ...
 	}
 
 	@Override
