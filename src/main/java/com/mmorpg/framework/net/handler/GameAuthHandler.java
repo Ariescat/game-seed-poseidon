@@ -64,7 +64,7 @@ public class GameAuthHandler extends ChannelInboundHandlerAdapter {
 		try {
 			packet = PacketFactory.decodePacket(request, session);
 		} catch (Exception e) {
-			ExceptionUtils.log(e);
+			ExceptionUtils.error(e);
 		} finally {
 			ReferenceCountUtil.release(request);
 		}

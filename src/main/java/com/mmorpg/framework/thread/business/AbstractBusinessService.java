@@ -54,7 +54,7 @@ public abstract class AbstractBusinessService implements IBusinessService, Initi
 			try {
 				consumerThread.join();
 			} catch (InterruptedException e) {
-				ExceptionUtils.log(e);
+				ExceptionUtils.error(e);
 			}
 		}
 		log.warn("{} stop", getName());
@@ -84,14 +84,14 @@ public abstract class AbstractBusinessService implements IBusinessService, Initi
 					try {
 						message.execute();
 					} catch (Throwable e) {
-						ExceptionUtils.log(e);
+						ExceptionUtils.error(e);
 					}
 					count++;
 				}
 				this.execute();
 				Thread.sleep(getMinSleepMillis());
 			} catch (Throwable e) {
-				ExceptionUtils.log(e);
+				ExceptionUtils.error(e);
 			}
 		}
 	}

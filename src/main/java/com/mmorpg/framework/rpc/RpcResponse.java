@@ -43,13 +43,13 @@ public class RpcResponse extends ICrossMsg {
 				if (StringUtils.isNotBlank(error)) {
 					RpcExecuteException throwable = new RpcExecuteException(error);
 					responseFuture.exception(throwable);
-					ExceptionUtils.log("RPC Call Exception:", error);
+					ExceptionUtils.error("RPC Call Exception:", error);
 				} else {
 					responseFuture.setValue(ret);
 				}
 			}
 		} catch (Exception e) {
-			ExceptionUtils.log(e);
+			ExceptionUtils.error(e);
 		}
 	}
 

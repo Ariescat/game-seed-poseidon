@@ -73,7 +73,7 @@ public class OnlinePlayer {
 						packet.write();
 						oldSession.getChannel().writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE);
 					} catch (Exception e) {
-						ExceptionUtils.log(e);
+						ExceptionUtils.error(e);
 					} finally {
 						oldSession.close(CloseCause.Duplicate_Login, session.getIp());
 					}

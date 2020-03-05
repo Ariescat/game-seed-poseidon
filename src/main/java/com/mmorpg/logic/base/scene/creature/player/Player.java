@@ -89,7 +89,7 @@ public class Player extends GObject {
 				gameSession.sendPacket(packet);
 			}
 		} catch (Exception e) {
-			ExceptionUtils.log(e);
+			ExceptionUtils.error(e);
 		}
 	}
 
