@@ -1,0 +1,1 @@
+[Ariescat Blog/spring对groovy的支持](https://ariescat.github.io/2020/03/04/Spring%E5%AF%B9Groovy%E7%9A%84%E6%94%AF%E6%8C%81/)
