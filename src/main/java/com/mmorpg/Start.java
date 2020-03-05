@@ -21,13 +21,14 @@ public class Start {
 	private final static Logger log = LoggerFactory.getLogger(Start.class);
 
 	private static NetServer netServer;
+	public static ConfigurableApplicationContext ctx;
 
 	public static void main(String[] args) throws Exception {
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
 
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		ListenerManager.getInstance().init(context);
+		ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+		ListenerManager.getInstance().init(ctx);
 		GateKeepers.initialize();
 		netServer = new NetServer();
 		netServer.startServer(4010);

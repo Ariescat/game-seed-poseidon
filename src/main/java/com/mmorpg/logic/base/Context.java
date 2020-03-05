@@ -7,6 +7,7 @@ import com.mmorpg.framework.cross.server.CrossChannelManager;
 import com.mmorpg.framework.event.EventBus;
 import com.mmorpg.logic.base.scene.creature.player.service.PlayerService;
 import com.mmorpg.logic.base.service.ConfigService;
+import com.mmorpg.logic.modules.activity.IActivityService;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -58,6 +59,8 @@ public class Context implements ApplicationContextAware {
 	@Autowired
 	public PlayerService playerService;
 
+//	@Autowired
+//	public IActivityService activityService;
 
 	@PostConstruct
 	public void init() {

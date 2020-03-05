@@ -12,14 +12,10 @@ import org.springframework.util.StopWatch;
  */
 public class TestStart {
 
-	public static void main(String[] args) {
-		StopWatch stopWatch = new StopWatch();
-		stopWatch.start();
+	public static void main(String[] args) throws Exception {
+		Start.main(args);
 
-		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-
-		stopWatch.stop();
-		System.err.println("used time:" + stopWatch.getTotalTimeMillis());
+		ConfigurableApplicationContext context = Start.ctx;
 
 		// test rpc
 		RpcClientTest clientTest = context.getBean(RpcClientTest.class);

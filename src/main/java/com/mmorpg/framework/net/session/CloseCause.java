@@ -7,4 +7,5 @@ package com.mmorpg.framework.net.session;
 public enum CloseCause {
 
 	Status_Exception,
+	Duplicate_Login,
 }

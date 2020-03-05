@@ -1,12 +1,19 @@
 package com.mmorpg.framework.utils;
 
+import com.mmorpg.framework.net.session.CloseCause;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
+import com.mmorpg.framework.packet.PacketFactory;
+import com.mmorpg.framework.packet.PacketId;
 import com.mmorpg.logic.base.Context;
+import com.mmorpg.logic.base.login.packet.RespLoginConflictPacket;
 import com.mmorpg.logic.base.scene.creature.player.Player;
+import io.netty.channel.ChannelFutureListener;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.concurrent.ConcurrentUtils;
 
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,6 +21,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author Ariescat
  * @version 2020/2/19 11:55
  */
+@Slf4j
 public class OnlinePlayer {
 
 	private final static OnlinePlayer instance = new OnlinePlayer();
@@ -29,7 +37,11 @@ public class OnlinePlayer {
 	/**
 	 * 玩家账号 => 玩家ID
 	 */
-	private final ConcurrentHashMap<String, Set<Long>> account_2_playerIds = new ConcurrentHashMap<>();
+	private final ConcurrentHashMap<String, List<Long>> account_2_playerIds = new ConcurrentHashMap<>();
+	/**
+	 * key => 玩家ID
+	 */
+	private final ConcurrentHashMap<String, Long> key_2_playerIds = new ConcurrentHashMap<>();
 	/**
 	 * 玩家昵称 => 玩家ID
 	 */
@@ -49,9 +61,35 @@ public class OnlinePlayer {
 	}
 
 	public boolean registerSession(Player player, GameSession session) {
-//		player.login();
-//		session.setPlayer(player, GameSessionStatusUpdateCause.RegisterSession);
-		return false;
+		String key = session.getAccount_server();
+		Long oldId = key_2_playerIds.putIfAbsent(key, player.getId());
+		if (oldId != null) {
+			GameSession oldSession = playerId_2_session.get(oldId);
+			if (oldSession != null) {
+				if (oldSession.setExiting()) {
+					try {
+						RespLoginConflictPacket packet = PacketFactory.createPacket(PacketId.RESP_LOGIN_CONFLICT);
+						packet.duplicateLogin();
+						packet.write();
+						oldSession.getChannel().writeAndFlush(packet).addListener(ChannelFutureListener.CLOSE);
+					} catch (Exception e) {
+						ExceptionUtils.log(e);
+					} finally {
+						oldSession.close(CloseCause.Duplicate_Login, session.getIp());
+					}
+				}
+			}
+			return false;
+		}
+
+		session.registered();
+		session.setPlayer(player, GameSessionStatusUpdateCause.RegisterSession);
+		playerId_2_session.put(player.getId(), session);
+		name_2_playerIds.put(player.getName(), player.getId());
+		addPlayerId(player.getAccount(), player.getId());
+
+		log.info("{} {} register", session.getAccount(), player.getId());
+		return true;
 	}
 
 	public void removeSession(GameSession session, GameSessionStatusUpdateCause cause) {
@@ -101,5 +139,27 @@ public class OnlinePlayer {
 
 	public void timeoutReset(Player player, GameSessionStatusUpdateCause cause) {
 		// TODO
+	}
+
+	private List<Long> getPlayerIdsByAccount(String account) {
+		List<Long> ids = account_2_playerIds.get(account);
+		if (ids == null) {
+			ids = ConcurrentUtils.putIfAbsent(account_2_playerIds, account, new LinkedList<Long>());
+		}
+		return ids;
+	}
+
+	private boolean removePlayerId(String account, Long playerId) {
+		List<Long> ids = getPlayerIdsByAccount(account);
+		synchronized (ids) {
+			return ids.remove(playerId);
+		}
+	}
+
+	private boolean addPlayerId(String account, Long playerId) {
+		List<Long> ids = getPlayerIdsByAccount(account);
+		synchronized (ids) {
+			return ids.add(playerId);
+		}
 	}
 }

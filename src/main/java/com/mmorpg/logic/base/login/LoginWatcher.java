@@ -5,13 +5,13 @@ import com.mmorpg.framework.message.MessageId;
 import com.mmorpg.framework.message.MessageType;
 import com.mmorpg.framework.net.session.GameSession;
 import com.mmorpg.framework.net.session.GameSessionStatusUpdateCause;
-import com.mmorpg.logic.base.login.packet.RespLoginAskPacket;
-import com.mmorpg.logic.base.message.RespMessagePacket;
 import com.mmorpg.framework.utils.OnlinePlayer;
 import com.mmorpg.framework.utils.PacketUtils;
 import com.mmorpg.framework.utils.TimeUtils;
 import com.mmorpg.framework.utils.Timer;
 import com.mmorpg.logic.base.Context;
+import com.mmorpg.logic.base.login.packet.RespLoginAskPacket;
+import com.mmorpg.logic.base.message.RespMessagePacket;
 import com.mmorpg.logic.base.scene.creature.player.Player;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -99,7 +99,7 @@ public class LoginWatcher {
 		player.sendPacket(packet.success());
 		player.login();
 
-		// TODO send scene info (sceneId, point)
+		// TODO send scene info (sceneId, point, role info)
 	}
 
 	/**

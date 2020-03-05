@@ -102,7 +102,10 @@ public class GameSession {
 	/**
 	 * 参数
 	 */
+	@Setter
 	private Map<String, String> paramMap = Collections.emptyMap();
+	@Getter
+	@Setter
 	private String params;
 	/**
 	 * 是否微端登录
@@ -403,15 +406,12 @@ public class GameSession {
 		this.registered = true;
 	}
 
-	public int generateKey() {
+	public void generateKey() {
 		if (PacketFactory.isPacketEncryptEnabled()) {
-			int key = AuthUtils.genKey();
-			this.key = key;
+			this.key = AuthUtils.genKey();
 			this.salt = AuthUtils.restoreSalt(key);
-			return key;
 		}
 		this.salt = 0;
-		return 0;
 	}
 
 	public int reGenerateKey(int nextDelay, int nextExpire) {
