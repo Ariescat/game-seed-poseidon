@@ -9,6 +9,7 @@ import com.mmorpg.framework.utils.ExceptionUtils;
 import com.mmorpg.logic.base.Context;
 import com.mmorpg.logic.base.scene.creature.GObject;
 import com.mmorpg.logic.base.scene.creature.player.entity.PlayerEntity;
+import com.mmorpg.logic.base.scene.point.Point;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,6 +32,18 @@ public class Player extends GObject {
 	@Getter
 	private GameSession gameSession;
 
+	/**
+	 * 准备要转换的场景ID
+	 */
+	@Getter
+	@Setter
+	private int prepareSceneId;
+	/**
+	 * 准备要转换的传送目标点
+	 */
+	@Getter
+	@Setter
+	private Point preparePoint;
 	@Getter
 	@Setter
 	private CrossInfo crossInfo;
@@ -107,5 +120,9 @@ public class Player extends GObject {
 
 	public boolean isCrossed() {
 		return crossInfo.isCrossed();
+	}
+
+	public void exitScene() {
+		// TODO
 	}
 }

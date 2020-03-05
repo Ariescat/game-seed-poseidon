@@ -1,11 +1,13 @@
 package com.mmorpg.logic.base.scene;
 
 import com.mmorpg.framework.thread.god.UniversalSpokesmanOfGod;
+import com.mmorpg.framework.utils.ExceptionUtils;
 import com.mmorpg.framework.utils.Profile;
 import org.apache.commons.lang.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
@@ -45,11 +47,19 @@ public class Scene extends UniversalSpokesmanOfGod implements Cloneable {
 	 * 当前场景ID
 	 */
 	private int sceneId;
-
+	/**
+	 * 场景是否退出
+	 */
+	private volatile boolean isExiting = false;
 	/**
 	 * 当前场景分线
 	 */
 	private int lineId;
+
+	/**
+	 * 场景消息
+	 */
+	private ConcurrentLinkedQueue<ISceneMessage> sceneMessages = new ConcurrentLinkedQueue<>();
 
 	private StopWatch tickWatch = new StopWatch();
 
@@ -99,11 +109,27 @@ public class Scene extends UniversalSpokesmanOfGod implements Cloneable {
 		checkStop();
 	}
 
+	public void addSceneMessage(ISceneMessage message) {
+		if (isExiting) {
+			log.error("Scene is exiting");
+		}
+		sceneMessages.add(message);
+	}
+
 	/**
 	 * 处理场景消息
 	 */
 	private void processSceneMessage() {
-
+		try {
+			ISceneMessage message;
+			int count = 0;
+			while (count < MESSAGE_PRE_TICK && (message = this.sceneMessages.poll()) != null) {
+				message.execute(this);
+				count++;
+			}
+		} catch (Exception e) {
+			ExceptionUtils.error("{} processSceneMessage", this, e);
+		}
 	}
 
 	private void processAllMove(long utime) {
