@@ -12,7 +12,8 @@ print s
 print s + 1
 
 class Person {
-
+	// 貌似不能私有化，任何地方都可以直接获取
+	private def age = 5
 }
 
 def person = new Person()
