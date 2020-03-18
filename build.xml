@@ -7,11 +7,13 @@
 		<echo>hello ant</echo>
 	</target>
 
+	<!--"-J-Dfile.encoding=GBK"-->
 	<target name="svn_update_config" description="svn更新配置文件">
+		<echo>${config.path}</echo>
 		<exec executable="cmd">
 			<arg value="/c"/>
 			<arg value="svn update"/>
-			<arg value="{config.path}"/>
+			<arg value="${config.path}"/>
 		</exec>
 		<!--等同-->
 		<!--<exec executable="svn">
