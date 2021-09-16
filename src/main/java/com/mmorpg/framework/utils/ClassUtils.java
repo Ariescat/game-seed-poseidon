@@ -39,7 +39,7 @@ public class ClassUtils {
 		while (urlEnumeration.hasMoreElements()) {
 			/*
 			 * 得到的结果大概是：
-			 * 	file:/C:/XXX/game-framework-odin/target/classes/com/mmorpg
+			 * 	file:/C:/XXX/game-framework-poseidon/target/classes/com/mmorpg
 			 * 	jar:file:/C:/XXX/.m2/repository/junit/junit/4.13/junit-4.13.jar!/junit
 			 */
 			URL url = urlEnumeration.nextElement();
