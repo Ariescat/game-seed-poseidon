@@ -8,13 +8,16 @@ import org.springframework.stereotype.Component;
  * @version 2020/2/26 14:41
  */
 @Component
-public class ActivityService implements IActivityService {
+public class ActivityService2 implements IActivityService2 {
 
-	@Autowired
-	private IActivityService2 activityService2;
+//	/**
+//	 * TODO 测试循环依赖
+//	 */
+//	@Autowired
+//	private IActivityService activityService;
 
 	@Override
 	public void reqInfo() {
-		System.err.println("reqInfo");
+		System.err.println("reqInfo2");
 	}
 }

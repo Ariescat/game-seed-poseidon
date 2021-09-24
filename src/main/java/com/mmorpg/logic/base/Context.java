@@ -63,6 +63,8 @@ public class Context implements ApplicationContextAware {
 
 //	@Autowired
 //	public IActivityService activityService;
+//	@Autowired
+//	public IActivityService2 activityService2;
 
 	@PostConstruct
 	public void init() {
